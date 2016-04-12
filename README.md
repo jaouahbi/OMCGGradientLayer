@@ -1,2 +1,2 @@
 # OMRadialGradientLayer
-Radial gradient layer
+Radial gradient layer with animations
