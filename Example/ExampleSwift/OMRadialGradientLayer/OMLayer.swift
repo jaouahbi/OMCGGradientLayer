@@ -22,13 +22,6 @@
 //
 //  Description:
 //  Simple derived CALayer class used as base class
-//
-//  Versión 0.1 (29-3-2015)
-//  Added context flip
-//  Versión 0.11 (22-4-2015)
-//  Changed CGAffineTransform for CATransform3DMakeRotation
-//  Versión 0.112 (29-4-2015)
-//  Added the shadow funcs
 
 
 import UIKit
@@ -103,7 +96,7 @@ import UIKit
     }
     
     
-    func animateKeyPath(keyPath : String, fromValue : Double, toValue:Double, beginTime:NSTimeInterval, duration:NSTimeInterval, delegate:AnyObject?)
+    func animateKeyPath(keyPath : String, fromValue : AnyObject?, toValue:AnyObject?, beginTime:NSTimeInterval, duration:NSTimeInterval, delegate:AnyObject?)
     {
         let animation = CABasicAnimation(keyPath:keyPath);
         

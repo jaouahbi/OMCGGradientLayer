@@ -27,28 +27,36 @@ class OMGradientLayerViewController : UIViewController {
     
     let gradientLayer = OMRadialGradientLayer(type: kOMGradientLayerRadial)
     var colors = [AnyObject]()
+    var colorsTo = [AnyObject]()
     let locations: [Float] = [0, 1/6.0, 1/3.0, 0.5, 2/3.0, 5/6.0, 1.0]
-    
-    var radius : Float = 0.0
+    let locationsTo: [Float] = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0]
     
     // MARK: - Quick reference
     
     func setUpColors() {
         colors = [cgColorForRed(209.0, green: 0.0, blue: 0.0),
-            cgColorForRed(255.0, green: 102.0, blue: 34.0),
-            cgColorForRed(255.0, green: 218.0, blue: 33.0),
-            cgColorForRed(51.0, green: 221.0, blue: 0.0),
-            cgColorForRed(17.0, green: 51.0, blue: 204.0),
-            cgColorForRed(34.0, green: 0.0, blue: 102.0),
-            cgColorForRed(51.0, green: 0.0, blue: 68.0)]
+                  cgColorForRed(255.0, green: 102.0, blue: 34.0),
+                  cgColorForRed(255.0, green: 218.0, blue: 33.0),
+                  cgColorForRed(51.0, green: 221.0, blue: 0.0),
+                  cgColorForRed(17.0, green: 51.0, blue: 204.0),
+                  cgColorForRed(34.0, green: 0.0, blue: 102.0),
+                  cgColorForRed(51.0, green: 0.0, blue: 68.0)]
+        
+
+        colorsTo = [cgColorForRed(219.0, green: 0.0, blue: 4.0),
+                  cgColorForRed(215.0, green: 102.0, blue: 4.0),
+                  cgColorForRed(215.0, green: 218.0, blue: 33.0),
+                  cgColorForRed(51.0, green: 221.0, blue: 30.0),
+                  cgColorForRed(57.0, green: 100.0, blue: 204.0),
+                  cgColorForRed(34.0, green: 0.0, blue: 102.0),
+                  cgColorForRed(1.0, green: 6.0, blue: 68.0)]
     }
     
     func setUpGradientLayer() {
         
-        
         gradientLayer.frame     = viewForGradientLayer.bounds
-        gradientLayer.colors    = colors
-        gradientLayer.locations = locations
+        gradientLayer.colors    = colors.reverse()
+        gradientLayer.locations = locations.reverse()
         
         let center = CGPoint(x: viewForGradientLayer.bounds.width * 0.5,
                              y: viewForGradientLayer.bounds.height * 0.5)
@@ -58,9 +66,6 @@ class OMGradientLayerViewController : UIViewController {
         
         centerEndX.value = Float(center.x)
         centerEndY.value = Float(center.y)
-        
-        gradientLayer.startCenter = center
-        gradientLayer.endCenter   = center
     }
     
     func setUpLocationSliders() {
@@ -118,40 +123,89 @@ class OMGradientLayerViewController : UIViewController {
         coordinator.animateAlongsideTransition({(UIViewControllerTransitionCoordinatorContext) in
             
         }) {(UIViewControllerTransitionCoordinatorContext) in
-            
+            // update the gradient layer frame
             self.gradientLayer.frame = self.viewForGradientLayer.bounds
         }
     }
     
     func updateGradientLayer()
     {
-        var startCenter:CGPoint  = CGPointZero;
-        var endCenter:CGPoint    = CGPointZero;
+        viewForGradientLayer.layoutIfNeeded()
         
         // radius
-        self.radius = Float(min(viewForGradientLayer.bounds.height,viewForGradientLayer.bounds.width))
+        let radius = Float(min(viewForGradientLayer.bounds.height,viewForGradientLayer.bounds.width))
         
-        gradientLayer.startRadius  = CGFloat(radius * startRadiusSlider.value)
-        gradientLayer.endRadius    = CGFloat(radius * endRadiusSlider.value)
-    
-        startCenter = CGPoint(x:CGFloat(centerStartX.value),
-                              y:CGFloat(centerStartY.value))
-    
-        endCenter = CGPoint(x:CGFloat(centerEndX.value),
-                            y:CGFloat(centerEndY.value))
+//        gradientLayer.startRadius  = CGFloat(radius * startRadiusSlider.value)
+//        gradientLayer.endRadius    = CGFloat(radius * endRadiusSlider.value)
+//    
         
-        gradientLayer.endCenter     = endCenter
-        gradientLayer.startCenter   = startCenter
+        let endRadius   = Double(radius * endRadiusSlider.value)
+        let startRadius = Double(radius * startRadiusSlider.value)
         
-        print("Update  radial gradient : sc: \(startCenter) ec: \(endCenter) sr: \(gradientLayer.startRadius) er: \(gradientLayer.endRadius) b: \(viewForGradientLayer.bounds.integral) ms: \(radius)")
+        let startCenter = CGPoint(x:CGFloat(centerStartX.value),y:CGFloat(centerStartY.value))
+        let endCenter   = CGPoint(x:CGFloat(centerEndX.value),y:CGFloat(centerEndY.value))
         
-        gradientLayer.setNeedsDisplay();
+//        gradientLayer.endCenter     = endCenter
+//        gradientLayer.startCenter   = startCenter
         
-        startCenterSliderValueLabel.text    = "\(centerStartX.value)\n\(centerStartY.value)"
-        endCenterSliderValueLabel.text      = "\(centerEndX.value)\n\(centerEndY.value)"
+        print("Update  radial gradient : sc: \(startCenter) ec: \(endCenter) sr: \(startRadius) er: \(endRadius) b: \(viewForGradientLayer.bounds.integral) ms: \(radius)")
         
-        startRadiusSliderValueLabel.text = String(format: "%.1f", gradientLayer.startRadius)
-        endRadiusSliderValueLabel.text   = String(format: "%.1f", gradientLayer.endRadius)
+        
+        startCenterSliderValueLabel.text = "\(centerStartX.value)\n\(centerStartY.value)"
+        endCenterSliderValueLabel.text   = "\(centerEndX.value)\n\(centerEndY.value)"
+        
+        startRadiusSliderValueLabel.text = String(format: "%.1f", startRadius)
+        endRadiusSliderValueLabel.text   = String(format: "%.1f", endRadius)
+        
+        //gradientLayer.setNeedsDisplay();
+        
+        gradientLayer.removeAllAnimations()
+        let mediaTime =  CACurrentMediaTime()
+        CATransaction.begin()
+        gradientLayer.animateKeyPath("startRadius",
+                                     fromValue: Double(gradientLayer.startRadius),
+                                     toValue: startRadius,
+                                     beginTime: mediaTime ,
+                                     duration: 2,
+                                     delegate: nil)
+        
+        gradientLayer.animateKeyPath("endRadius",
+                                     fromValue: Double(gradientLayer.endRadius),
+                                     toValue: endRadius,
+                                     beginTime: mediaTime,
+                                     duration: 2,
+                                     delegate: nil)
+        
+        gradientLayer.animateKeyPath("startCenter",
+                                     fromValue: NSValue(CGPoint: gradientLayer.startCenter),
+                                     toValue: NSValue(CGPoint:startCenter),
+                                     beginTime: mediaTime ,
+                                     duration: 2,
+                                     delegate: nil)
+        
+        gradientLayer.animateKeyPath("endCenter",
+                                     fromValue: NSValue(CGPoint:gradientLayer.endCenter),
+                                     toValue: NSValue(CGPoint:endCenter),
+                                     beginTime: mediaTime,
+                                     duration: 2,
+                                     delegate: nil)
+        
+        
+        gradientLayer.animateKeyPath("colors",
+                                     fromValue:colors,
+                                     toValue: colorsTo,
+                                     beginTime: mediaTime,
+                                     duration: 2,
+                                     delegate: nil)
+        
+        gradientLayer.animateKeyPath("locations",
+                                     fromValue:locations,
+                                     toValue: locationsTo,
+                                     beginTime: mediaTime,
+                                     duration: 2,
+                                     delegate: nil)
+        
+        CATransaction.commit()
     }
 
     @IBAction func extendsPastStartChanged(sender: UISwitch) {
@@ -165,6 +219,7 @@ class OMGradientLayerViewController : UIViewController {
     }
     
     @IBAction func radialSliderChanged(sender: UISlider) {
+        
         updateGradientLayer()
     }
     

@@ -41,20 +41,19 @@ private struct OMRadialGradientLayerProperties {
 
 
 let kOMGradientLayerRadial: String = "radial"
-let kOMGradientLayerOval: String =  "oval"
+let kOMGradientLayerOval: String   = "oval"
 
 @objc class OMRadialGradientLayer : OMLayer
 {
     private(set) var gradient:CGGradientRef?
     
-    var startCenterRatio: CGPoint = CGPoint(x:0,y:0)
-    var endCenterRatio: CGPoint = CGPoint(x:0,y:0)
+    var startCenterRatio: CGPoint = CGPointZero
+    var endCenterRatio  : CGPoint = CGPointZero
     
     var startRadiusRatio : Double = 0
     var endRadiusRatio   : Double = 0
     
-    
-    var startCenter: CGPoint = CGPoint(x:0,y:0)
+    var startCenter: CGPoint = CGPointZero
     {
         didSet
         {
@@ -63,7 +62,7 @@ let kOMGradientLayerOval: String =  "oval"
         }
     }
     
-    var endCenter: CGPoint = CGPoint(x:0,y:0)
+    var endCenter: CGPoint = CGPointZero
     {
         didSet
         {
@@ -71,70 +70,49 @@ let kOMGradientLayerOval: String =  "oval"
             endCenterRatio.y = endCenter.y / bounds.size.height;
         }
     }
-    var startRadius: CGFloat = 0
-    {
-        didSet
-        {
+    var startRadius: CGFloat = 0 {
+        didSet {
             startRadiusRatio = Double(startRadius / min(bounds.size.height,bounds.size.width));
         }
     }
-    var endRadius: CGFloat = 0
-    {
-        didSet
-        {
+    var endRadius: CGFloat = 0 {
+        didSet {
             endRadiusRatio = Double(endRadius / min(bounds.size.height,bounds.size.width));
         }
     }
 
     var extendsPastStart: Bool  {
         set(newValue) {
-            let isSet = (self.options.rawValue & CGGradientDrawingOptions.DrawsBeforeStartLocation.rawValue ) != 0 ;
-            if (newValue !=  isSet)
-            {
+            let isBitSet = (self.options.rawValue & CGGradientDrawingOptions.DrawsBeforeStartLocation.rawValue ) != 0 ;
+            if (newValue != isBitSet) {
                 if newValue {
-                    
-                    self.options  = CGGradientDrawingOptions(rawValue:self.options.rawValue | CGGradientDrawingOptions.DrawsBeforeStartLocation.rawValue);
+                    // add bits to mask
+                    let newOptions = (self.options.rawValue | CGGradientDrawingOptions.DrawsBeforeStartLocation.rawValue)
+                    self.options   = CGGradientDrawingOptions(rawValue:newOptions);
+                } else {
+                    // remove bits from mask
+                     let newOptions  = (self.options.rawValue & ~CGGradientDrawingOptions.DrawsBeforeStartLocation.rawValue)
+                     self.options    = CGGradientDrawingOptions(rawValue:newOptions);
                 }
-                else
-                {
-                     self.options  = CGGradientDrawingOptions(rawValue:self.options.rawValue & ~CGGradientDrawingOptions.DrawsBeforeStartLocation.rawValue);
-                }
-            
                 self.setNeedsDisplay();
             }
         }
-        get
-        {
+        get {
             return (self.options.rawValue & CGGradientDrawingOptions.DrawsBeforeStartLocation.rawValue) != 0;
         }
     }
-//    override var bounds: CGRect
-//    {
-//        set(newValue) {
-//            super.bounds = newValue
-//            self.setNeedsDisplay()
-//        }
-//        get
-//        {
-//            return super.bounds
-//        }
-//    }
-//    
     
     var extendsPastEnd:Bool
     {
-        set(newValue)
-        {
-            let isSet = (self.options.rawValue & CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue ) != 0 ;
-            
-            if (newValue !=  isSet) {
+        set(newValue) {
+            let isBitSet = (self.options.rawValue & CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue ) != 0 ;
+            if (newValue != isBitSet) {
                 if newValue {
-                    
-                    self.options  = CGGradientDrawingOptions(rawValue:self.options.rawValue | CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue);
-                }
-                else
-                {
-                    self.options  = CGGradientDrawingOptions(rawValue:self.options.rawValue & ~CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue);
+                    let newOptions = (self.options.rawValue | CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue)
+                    self.options   = CGGradientDrawingOptions(rawValue:newOptions);
+                } else {
+                    let newOptions = (self.options.rawValue & ~CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue)
+                    self.options   = CGGradientDrawingOptions(rawValue:newOptions);
                 }
                 self.setNeedsDisplay();
             }
@@ -144,6 +122,19 @@ let kOMGradientLayerOval: String =  "oval"
             return (self.options.rawValue & CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue) != 0;
         }
     }
+    
+    //    override var bounds: CGRect
+    //    {
+    //        set(newValue) {
+    //            super.bounds = newValue
+    //            self.setNeedsDisplay()
+    //        }
+    //        get
+    //        {
+    //            return super.bounds
+    //        }
+    //    }
+    //
     
     //var options: CGGradientDrawingOptions = CGGradientDrawingOptions(rawValue:
     //    CGGradientDrawingOptions.DrawsBeforeStartLocation.rawValue|CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue)
@@ -405,12 +396,19 @@ let kOMGradientLayerOval: String =  "oval"
         
         if let player: OMRadialGradientLayer = self.presentationLayer() as? OMRadialGradientLayer {
             
-            self.gradient = OMRadialGradientLayer.createGradient(player.colors as? [CGColorRef],
+            let col = player.colors as? [CGColorRef]
+            
+            print("drawing presentationLayer\n \(col)")
+            
+            self.gradient = OMRadialGradientLayer.createGradient(col,
                                                                  locations: player.locations as? [CGFloat])
             startCenter  = player.startCenter
             endCenter    = player.endCenter
             startRadius  = player.startRadius
             endRadius    = player.endRadius
+        } else {
+            
+            print("drawing modelLayer")
         }
         
         
@@ -418,16 +416,15 @@ let kOMGradientLayerOval: String =  "oval"
             
             // Draw the radial gradient
           
-            let startX = bounds.size.width  * startCenterRatio.x;
-            let startY = bounds.size.height * startCenterRatio.y;
+            let startX  = bounds.size.width  * startCenterRatio.x;
+            let startY  = bounds.size.height * startCenterRatio.y;
+            let endX    = bounds.size.width  * endCenterRatio.x;
+            let endY    = bounds.size.height * endCenterRatio.y;
             
-            let endX = bounds.size.width  * endCenterRatio.x;
-            let endY = bounds.size.height * endCenterRatio.y;
+            let minRadius = startRadius * CGFloat(startRadiusRatio);
+            let maxRadius = endRadius   * CGFloat(endRadiusRatio);
             
-            let minRadius = startRadius   * CGFloat(startRadiusRatio);
-            let maxRadius = endRadius     * CGFloat(endRadiusRatio);
-            
-            print("Drawing \(self.type) gradient : sc: \(CGPoint(x: startX,y: startY)) ec: \(CGPoint(x: endX,y: endY)) sr: \(minRadius) er: \(maxRadius) b: \(self.bounds.integral) ap: \(self.anchorPoint)")
+            print("Drawing \(self.type) gradient\n starCenter: \(CGPoint(x: startX,y: startY))\n endCenter: \(CGPoint(x: endX,y: endY))\n minRadius: \(minRadius)\n maxRadius: \(maxRadius)\n bounds: \(self.bounds.integral)\n anchorPoint: \(self.anchorPoint)\n")
             
             CGContextDrawRadialGradient(ctx,
                 gradient,
