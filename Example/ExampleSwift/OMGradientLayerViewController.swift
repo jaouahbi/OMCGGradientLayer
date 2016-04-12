@@ -43,20 +43,20 @@ class OMGradientLayerViewController : UIViewController {
                   cgColorForRed(51.0, green: 0.0, blue: 68.0)]
         
 
-        colorsTo = [cgColorForRed(219.0, green: 0.0, blue: 4.0),
-                  cgColorForRed(215.0, green: 102.0, blue: 4.0),
-                  cgColorForRed(215.0, green: 218.0, blue: 33.0),
-                  cgColorForRed(51.0, green: 221.0, blue: 30.0),
-                  cgColorForRed(57.0, green: 100.0, blue: 204.0),
-                  cgColorForRed(34.0, green: 0.0, blue: 102.0),
+        colorsTo = [cgColorForRed(119.0, green: 0.0, blue: 4.0),
+                  cgColorForRed(115.0, green: 102.0, blue: 4.0),
+                  cgColorForRed(115.0, green: 218.0, blue: 33.0),
+                  cgColorForRed(11.0, green: 221.0, blue: 30.0),
+                  cgColorForRed(17.0, green: 100.0, blue: 204.0),
+                  cgColorForRed(14.0, green: 0.0, blue: 102.0),
                   cgColorForRed(1.0, green: 6.0, blue: 68.0)]
     }
     
     func setUpGradientLayer() {
         
         gradientLayer.frame     = viewForGradientLayer.bounds
-        gradientLayer.colors    = colors.reverse()
-        gradientLayer.locations = locations.reverse()
+        gradientLayer.colors    = colors
+        gradientLayer.locations = locations
         
         let center = CGPoint(x: viewForGradientLayer.bounds.width * 0.5,
                              y: viewForGradientLayer.bounds.height * 0.5)
@@ -277,12 +277,12 @@ class OMGradientLayerViewController : UIViewController {
     
     // MARK: - Triggered actions
     
-    func updateStartAndEndRadiusValueLabels() {
-    }
-    
-    
-    func updateStartAndEndCenterValueLabels() {
-    }
+//    func updateStartAndEndRadiusValueLabels() {
+//    }
+//    
+//    
+//    func updateStartAndEndCenterValueLabels() {
+//    }
     
     func updateLocationSliderValueLabels() {
         for (index, label) in locationSliderValueLabels.enumerate() {

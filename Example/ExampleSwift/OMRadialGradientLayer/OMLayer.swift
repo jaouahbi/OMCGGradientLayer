@@ -86,45 +86,6 @@ import UIKit
         #endif
     }
     
-    
-    func animationActionForKey(event:String!) -> CABasicAnimation!
-    {
-        let animation = CABasicAnimation(keyPath: event)
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-        animation.fromValue = self.presentationLayer()!.valueForKey(event);
-        return animation
-    }
-    
-    
-    func animateKeyPath(keyPath : String, fromValue : AnyObject?, toValue:AnyObject?, beginTime:NSTimeInterval, duration:NSTimeInterval, delegate:AnyObject?)
-    {
-        let animation = CABasicAnimation(keyPath:keyPath);
-        
-        var currentValue: AnyObject? = self.presentationLayer()?.valueForKey(keyPath)
-        
-        if (currentValue == nil) {
-            currentValue = fromValue
-        }
-        
-        animation.fromValue = currentValue
-        animation.toValue   = toValue
-        animation.delegate  = delegate
-        
-        if(duration > 0.0){
-            animation.duration = duration
-        }
-        if(beginTime > 0.0){
-            animation.beginTime = beginTime
-        }
-        
-        animation.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionLinear)
-        animation.setValue(self,forKey:keyPath)
-        
-        self.addAnimation(animation, forKey:keyPath)
-        
-        self.setValue(toValue,forKey:keyPath)
-    }
-    
     // Sets the clipping path of the given graphics context to mask the content.
     
     func applyMaskToContext(ctx: CGContext!) {

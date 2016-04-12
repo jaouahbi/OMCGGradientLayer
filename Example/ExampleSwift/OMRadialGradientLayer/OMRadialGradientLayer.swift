@@ -47,25 +47,48 @@ let kOMGradientLayerOval: String   = "oval"
 {
     private(set) var gradient:CGGradientRef?
     
-    var startCenterRatio: CGPoint = CGPointZero
-    var endCenterRatio  : CGPoint = CGPointZero
+    private var startCenterRatio: CGPoint = CGPointZero
+    private var endCenterRatio  : CGPoint = CGPointZero
     
-    var startRadiusRatio : Double = 0
-    var endRadiusRatio   : Double = 0
+    private var startRadiusRatio : Double = 0
+    private var endRadiusRatio   : Double = 0
     
-    var startCenter: CGPoint = CGPointZero
-    {
-        didSet
-        {
+    
+    /* The array of CGColorRef objects defining the color of each gradient
+     * stop. Defaults to nil. Animatable. */
+    
+    var colors: [AnyObject]? = nil {
+        didSet {
+            self.gradient =  OMRadialGradientLayer.createGradient(self.colors as? [CGColorRef],locations: self.locations as? [CGFloat])
+        }
+    }
+    
+    /* An optional array of NSNumber objects defining the location of each
+     * gradient stop as a value in the range [0,1]. The values must be
+     * monotonically increasing. If a nil array is given, the stops are
+     * assumed to spread uniformly across the [0,1] range. When rendered,
+     * the colors are mapped to the output colorspace before being
+     * interpolated. Defaults to nil. Animatable. */
+    
+    var locations : [AnyObject]? = nil {
+        didSet {
+            self.gradient = OMRadialGradientLayer.createGradient(self.colors as? [CGColorRef],locations: self.locations as? [CGFloat])
+        }
+    }
+    
+    /* The kind of gradient that will be drawn. Default value is `radial' */
+    
+    var type : String! = kOMGradientLayerRadial
+   
+    
+    var startCenter: CGPoint = CGPointZero {
+        didSet {
             startCenterRatio.x = startCenter.x / bounds.size.width;
             startCenterRatio.y = startCenter.y / bounds.size.height;
         }
     }
-    
-    var endCenter: CGPoint = CGPointZero
-    {
-        didSet
-        {
+    var endCenter: CGPoint = CGPointZero {
+        didSet{
             endCenterRatio.x = endCenter.x / bounds.size.width;
             endCenterRatio.y = endCenter.y / bounds.size.height;
         }
@@ -80,10 +103,12 @@ let kOMGradientLayerOval: String   = "oval"
             endRadiusRatio = Double(endRadius / min(bounds.size.height,bounds.size.width));
         }
     }
-
-    var extendsPastStart: Bool  {
+    
+    var options: CGGradientDrawingOptions = CGGradientDrawingOptions(rawValue:0)
+    
+    var extendsPastStart : Bool  {
         set(newValue) {
-            let isBitSet = (self.options.rawValue & CGGradientDrawingOptions.DrawsBeforeStartLocation.rawValue ) != 0 ;
+            let isBitSet = (self.options.rawValue & CGGradientDrawingOptions.DrawsBeforeStartLocation.rawValue ) != 0
             if (newValue != isBitSet) {
                 if newValue {
                     // add bits to mask
@@ -98,14 +123,14 @@ let kOMGradientLayerOval: String   = "oval"
             }
         }
         get {
-            return (self.options.rawValue & CGGradientDrawingOptions.DrawsBeforeStartLocation.rawValue) != 0;
+            return (self.options.rawValue & CGGradientDrawingOptions.DrawsBeforeStartLocation.rawValue) != 0
         }
     }
     
     var extendsPastEnd:Bool
     {
         set(newValue) {
-            let isBitSet = (self.options.rawValue & CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue ) != 0 ;
+            let isBitSet = (self.options.rawValue & CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue ) != 0
             if (newValue != isBitSet) {
                 if newValue {
                     let newOptions = (self.options.rawValue | CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue)
@@ -117,56 +142,10 @@ let kOMGradientLayerOval: String   = "oval"
                 self.setNeedsDisplay();
             }
         }
-        get
-        {
-            return (self.options.rawValue & CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue) != 0;
+        get {
+            return (self.options.rawValue & CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue) != 0
         }
     }
-    
-    //    override var bounds: CGRect
-    //    {
-    //        set(newValue) {
-    //            super.bounds = newValue
-    //            self.setNeedsDisplay()
-    //        }
-    //        get
-    //        {
-    //            return super.bounds
-    //        }
-    //    }
-    //
-    
-    //var options: CGGradientDrawingOptions = CGGradientDrawingOptions(rawValue:
-    //    CGGradientDrawingOptions.DrawsBeforeStartLocation.rawValue|CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue)
-    
-    var options: CGGradientDrawingOptions = CGGradientDrawingOptions(rawValue:0)
-    
-    
-   /* The array of CGColorRef objects defining the color of each gradient
-    * stop. Defaults to nil. Animatable. */
-    
-    var colors: [AnyObject]? = nil {
-        didSet {
-            self.gradient =  OMRadialGradientLayer.createGradient(self.colors as? [CGColorRef],locations: self.locations as? [CGFloat])
-        }
-    }
-    
-   /* An optional array of NSNumber objects defining the location of each
-    * gradient stop as a value in the range [0,1]. The values must be
-    * monotonically increasing. If a nil array is given, the stops are
-    * assumed to spread uniformly across the [0,1] range. When rendered,
-    * the colors are mapped to the output colorspace before being
-    * interpolated. Defaults to nil. Animatable. */
-    
-    var locations : [AnyObject]? = nil {
-        didSet {
-            self.gradient = OMRadialGradientLayer.createGradient(self.colors as? [CGColorRef],locations: self.locations as? [CGFloat])
-        }
-    }
-    
-    /* The kind of gradient that will be drawn. Default value is `radial' */
-    
-    var type : String! = kOMGradientLayerRadial
     
     override init(layer: AnyObject) {
         super.init(layer: layer)
@@ -183,7 +162,6 @@ let kOMGradientLayerOval: String   = "oval"
             self.endCenter = other.endCenter
             self.endRadius = other.endRadius
             self.options = other.options
-
         }
     }
     
@@ -191,7 +169,6 @@ let kOMGradientLayerOval: String   = "oval"
         super.init(coder:aDecoder)
     }
 
-    
     convenience init(type:String!) {
         self.init()
         self.type = type
@@ -216,7 +193,6 @@ let kOMGradientLayerOval: String   = "oval"
         return super.needsDisplayForKey(event)
     }
     
-    
     override func actionForKey(event: String) -> CAAction? {
         if(event == OMRadialGradientLayerProperties.startCenter ||
             event == OMRadialGradientLayerProperties.startRadius ||
@@ -231,100 +207,12 @@ let kOMGradientLayerOval: String   = "oval"
         return super.actionForKey(event)
     }
     
-    
-    
-//    override var bounds:CGRect
-//    {
-//        set(newValue) {
-//            if(!bounds.isEmpty)
-//            {
-//            let x = super.bounds.size.height / newValue.size.height
-//            let y = super.bounds.size.width / newValue.size.width
-//            
-//            
-//            let newBounds = CGRect(x: 0, y: 0, width: newValue.size.width * y, height: newValue.size.height * x)
-//            super.bounds = newBounds
-//            
-//            println("-> \(bounds)")
-//            }
-//            else
-//            {
-//                super.bounds = newValue
-//            }
-//            
-////            let invrad = 1.0 / Double(self.bounds.size.min())
-////            radius_start  = Double(startRadius) * invrad
-////            radius_end  = Double(endRadius) * invrad
-////            println("-> \(radius_start)")
-////            println("-> \(radius_end)")
-////            
-////            startCenter   = newValue.size.center()
-////            endCenter     = newValue.size.center()
-//        }
-//        
-//        get { return super.bounds }
-//    }
-    
-//    private func updateGradientWithColors()
-//    {
-//        var numbOfComponents:Int  = 4 // RGBA
-//    
-//        if(self.colors == nil || self.colors?.count == 0 ) {
-//            // Nothing to update
-//            return
-//        }
-//        
-//        var colorSpace: CGColorSpaceRef! = CGColorSpaceCreateDeviceRGB()
-//        
-//        var gradientComponents:Array<CGFloat>?
-//        
-//        let numberOfColors:Int = self.colors!.count
-//        
-//        if (numberOfColors > 0)
-//        {
-//            if (colors!.count > 0)
-//            {
-//                let colorRef = self.colors!.first as! CGColorRef
-//                numbOfComponents = Int(CGColorGetNumberOfComponents(colorRef))
-//                colorSpace = CGColorGetColorSpace(colorRef);
-//            }
-//            
-//            if (numbOfComponents > 0) {
-//                
-//                gradientComponents = [CGFloat](count: numberOfColors * numbOfComponents, repeatedValue: 0.0)
-//                
-//                for locationIndex in 0 ..< numberOfColors
-//                {
-//                    let clr = self.colors![locationIndex] as! CGColorRef
-//                    
-//                    let colorComponents = CGColorGetComponents(clr);
-//                    
-//                    for componentIndex in 0 ..< numbOfComponents {
-//                        gradientComponents?[numbOfComponents * locationIndex + componentIndex] = colorComponents[componentIndex]
-//                    }
-//                }
-//                
-//                //
-//                // If locations is NULL, the first color in colors is assigned to location 0, the last color incolors is assigned
-//                // to location 1, and intervening colors are assigned locations that are at equal intervals in between.
-//                
-//                
-//                self.gradient = CGGradientCreateWithColorComponents(colorSpace,
-//                    UnsafePointer<CGFloat>(gradientComponents!),
-//                    nil,
-//                    numberOfColors);
-//            }
-//        }
-//    }
-    
     class func createGradient(colors:[CGColorRef]?, locations:[CGFloat]?) -> CGGradientRef?
     {
         var colorSpace: CGColorSpaceRef! = CGColorSpaceCreateDeviceRGB()
         var numberOfComponents:Int  = 4 // RGBA
-        //var gradientLocations:Array<CGFloat>?
         var components:Array<CGFloat>?
         let numberOfLocations:Int
-        //let monotonicIncrement:Double
         
         if(colors == nil || colors?.count == 0 ) {
             // Nothing to update
@@ -333,11 +221,9 @@ let kOMGradientLayerOval: String   = "oval"
         
         if locations != nil {
             numberOfLocations = min(locations!.count, colors!.count)
-            //monotonicIncrement = 0.0
         } else {
             // If a nil array is given, the stops are assumed to spread uniformly across the [0,1] range
             numberOfLocations = colors!.count
-            //monotonicIncrement = 1.0 / Double(numberOfLocations - 1)
         }
         
         if (numberOfLocations > 0) {
@@ -346,23 +232,13 @@ let kOMGradientLayerOval: String   = "oval"
                 numberOfComponents = Int(CGColorGetNumberOfComponents(colorRef))
                 colorSpace         = CGColorGetColorSpace(colorRef);
             }
-            
-            //gradientLocations = Array(count: numberOfLocations, repeatedValue: 0.0)
-            
+   
             if (numberOfComponents > 0) {
                 
                 components = [CGFloat](count: numberOfLocations * numberOfComponents, repeatedValue: 0.0)
                 
                 for locationIndex in 0 ..< numberOfLocations
                 {
-//                    if locations != nil {
-//                        gradientLocations?[locationIndex] = locations![locationIndex]
-//                    } else {
-//                        gradientLocations?[locationIndex] = CGFloat(monotonicIncrement * Double(locationIndex))
-//                    }
-                    
-//                    let currentColor = colors![locationIndex]
-                    
                     let colorComponents = CGColorGetComponents(colors![locationIndex]);
                     
                     for componentIndex in 0 ..< numberOfComponents {
@@ -381,7 +257,6 @@ let kOMGradientLayerOval: String   = "oval"
             }
         }
         
-        
         return nil
     }
     
@@ -396,16 +271,15 @@ let kOMGradientLayerOval: String   = "oval"
         
         if let player: OMRadialGradientLayer = self.presentationLayer() as? OMRadialGradientLayer {
             
-            let col = player.colors as? [CGColorRef]
+            print("drawing presentationLayer")
             
-            print("drawing presentationLayer\n \(col)")
-            
-            self.gradient = OMRadialGradientLayer.createGradient(col,
+            self.gradient = OMRadialGradientLayer.createGradient(player.colors as? [CGColorRef],
                                                                  locations: player.locations as? [CGFloat])
             startCenter  = player.startCenter
             endCenter    = player.endCenter
             startRadius  = player.startRadius
             endRadius    = player.endRadius
+            
         } else {
             
             print("drawing modelLayer")
@@ -435,6 +309,9 @@ let kOMGradientLayerOval: String   = "oval"
                 options);
             
         }
+        //
+        // TODO: remove this code and use a transform for draw the gradient
+        //
         else if( self.type == kOMGradientLayerOval)
         {
             // Scaling transformation and keeping track of the inverse
@@ -467,19 +344,9 @@ let kOMGradientLayerOval: String   = "oval"
         }
     }
     
-    override var debugDescription: String {
-        get {
-            return self.description
-        }
-    }
-    
     override var description:String {
-        
         get {
-            
             if (self.type == kOMGradientLayerRadial || self.type == kOMGradientLayerOval) {
-               
-                //var str:String =  super.description + "type: \(self.type)"
                 
                 var str:String = "type: \(self.type)"
                 
@@ -491,13 +358,13 @@ let kOMGradientLayerOval: String   = "oval"
                     str += "\(colors)"
                 }
                 
-                str += " center from : \(startCenter) to \(endCenter) , radius from : \(startRadius) to \(endRadius)"
+                str += " center from : \(startCenter) to \(endCenter), radius from : \(startRadius) to \(endRadius)"
 
                 if  (self.extendsPastEnd)  {
-                    str += " Draws after end location"
+                    str += " draws after end location"
                 }
                 if  (self.extendsPastStart)  {
-                    str += " Draws before start location"
+                    str += " draws before start location"
                 }
                 
                 return str
