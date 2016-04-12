@@ -1,6 +1,6 @@
 import UIKit
 
-class CAGradientLayerViewController: UIViewController {
+class OMGradientLayerViewController : UIViewController {
     
     @IBOutlet weak var centerStartX:  UISlider!
     @IBOutlet weak var centerEndX:  UISlider!
@@ -22,11 +22,14 @@ class CAGradientLayerViewController: UIViewController {
     @IBOutlet var locationSliders: [UISlider]!
     @IBOutlet var locationSliderValueLabels: [UILabel]!
     
-    var radius:Float = 0.0
+    @IBOutlet weak var extendsPastEnd: UISwitch!
+    @IBOutlet weak var extendsPastStart: UISwitch!
     
     let gradientLayer = OMRadialGradientLayer(type: kOMGradientLayerRadial)
     var colors = [AnyObject]()
     let locations: [Float] = [0, 1/6.0, 1/3.0, 0.5, 2/3.0, 5/6.0, 1.0]
+    
+    var radius : Float = 0.0
     
     // MARK: - Quick reference
     
@@ -43,15 +46,13 @@ class CAGradientLayerViewController: UIViewController {
     func setUpGradientLayer() {
         
         
-        gradientLayer.frame = viewForGradientLayer.bounds
-        gradientLayer.colors = colors
+        gradientLayer.frame     = viewForGradientLayer.bounds
+        gradientLayer.colors    = colors
         gradientLayer.locations = locations
         
-        radius = Float(min(viewForGradientLayer.bounds.height, viewForGradientLayer.bounds.width))
+        let center = CGPoint(x: viewForGradientLayer.bounds.width * 0.5,
+                             y: viewForGradientLayer.bounds.height * 0.5)
         
-        let center = CGPoint(x: viewForGradientLayer.bounds.width * 0.5 ,y: viewForGradientLayer.bounds.height * 0.5)
-        
-   
         centerStartX.value = Float(center.x)
         centerStartY.value = Float(center.y)
         
@@ -60,9 +61,6 @@ class CAGradientLayerViewController: UIViewController {
         
         gradientLayer.startCenter = center
         gradientLayer.endCenter   = center
-        
-        gradientLayer.startRadius = 0
-        gradientLayer.endRadius = CGFloat(radius)
     }
     
     func setUpLocationSliders() {
@@ -78,79 +76,103 @@ class CAGradientLayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpColors()
+        
+        //viewForGradientLayer.backgroundColor = UIColor.blackColor()
+        viewForGradientLayer.layer.borderWidth = 1.0
+        viewForGradientLayer.layer.borderColor = UIColor.blackColor().CGColor
+
         viewForGradientLayer.layer.addSublayer(gradientLayer)
+
         setUpLocationSliders()
         updateLocationSliderValueLabels()
+        extendsPastEnd.on   = (gradientLayer.options.rawValue & CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue) != 0
+        extendsPastStart.on = (gradientLayer.options.rawValue & CGGradientDrawingOptions.DrawsBeforeStartLocation.rawValue) != 0
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
-
         
-        centerEndX.minimumValue = 0
-        centerStartX.minimumValue = 0
+        centerEndX.minimumValue     = 0
+        centerStartX.minimumValue   = 0
         
-        centerEndX.maximumValue   = Float(viewForGradientLayer.bounds.size.width * 0.5)
-        centerStartX.maximumValue = Float(viewForGradientLayer.bounds.size.width * 0.5)
+        centerEndX.maximumValue     = Float(viewForGradientLayer.bounds.size.width * 0.5)
+        centerStartX.maximumValue   = Float(viewForGradientLayer.bounds.size.width * 0.5)
         
-        centerEndY.minimumValue = 0
-        centerStartY.minimumValue = 0
+        centerEndY.minimumValue     = 0
+        centerStartY.minimumValue   = 0
         
-        centerEndY.maximumValue = Float(viewForGradientLayer.bounds.size.height * 0.5)
-        centerStartY.maximumValue = Float(viewForGradientLayer.bounds.size.height * 0.5)
+        centerEndY.maximumValue     = Float(viewForGradientLayer.bounds.size.height * 0.5)
+        centerStartY.maximumValue   = Float(viewForGradientLayer.bounds.size.height * 0.5)
         
+        startRadiusSlider.value     = 0
+        endRadiusSlider.value       = 1.0
         
         setUpGradientLayer()
-        
-        updateRadial()
-        
+        updateGradientLayer()
     }
+    
 
-    
-    @IBAction func radialSliderChanged(sender: UISlider)
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)
     {
-        updateRadial()
+        coordinator.animateAlongsideTransition({(UIViewControllerTransitionCoordinatorContext) in
+            
+        }) {(UIViewControllerTransitionCoordinatorContext) in
+            
+            self.gradientLayer.frame = self.viewForGradientLayer.bounds
+        }
     }
     
-    func updateRadial()
+    func updateGradientLayer()
     {
         var startCenter:CGPoint  = CGPointZero;
-        var endCenter:CGPoint = CGPointZero;
-    
-        gradientLayer.startRadius  =  CGFloat(radius * startRadiusSlider.value);
-        gradientLayer.endRadius  = CGFloat(radius * endRadiusSlider.value);
-    
-        startCenter = CGPoint(x:CGFloat(centerStartX.value),y:CGFloat(centerStartY.value));
-    
-        endCenter = CGPoint(x:CGFloat(centerEndX.value),y:CGFloat(centerEndY.value));
+        var endCenter:CGPoint    = CGPointZero;
         
-        gradientLayer.endCenter = endCenter;
-        gradientLayer.startCenter = startCenter;
+        // radius
+        self.radius = Float(min(viewForGradientLayer.bounds.height,viewForGradientLayer.bounds.width))
+        
+        gradientLayer.startRadius  = CGFloat(radius * startRadiusSlider.value)
+        gradientLayer.endRadius    = CGFloat(radius * endRadiusSlider.value)
+    
+        startCenter = CGPoint(x:CGFloat(centerStartX.value),
+                              y:CGFloat(centerStartY.value))
+    
+        endCenter = CGPoint(x:CGFloat(centerEndX.value),
+                            y:CGFloat(centerEndY.value))
+        
+        gradientLayer.endCenter     = endCenter
+        gradientLayer.startCenter   = startCenter
+        
+        print("Update  radial gradient : sc: \(startCenter) ec: \(endCenter) sr: \(gradientLayer.startRadius) er: \(gradientLayer.endRadius) b: \(viewForGradientLayer.bounds.integral) ms: \(radius)")
         
         gradientLayer.setNeedsDisplay();
         
-        updateStartAndEndCenterValueLabels()
-        updateStartAndEndRadiusValueLabels()
+        startCenterSliderValueLabel.text    = "\(centerStartX.value)\n\(centerStartY.value)"
+        endCenterSliderValueLabel.text      = "\(centerEndX.value)\n\(centerEndY.value)"
+        
+        startRadiusSliderValueLabel.text = String(format: "%.1f", gradientLayer.startRadius)
+        endRadiusSliderValueLabel.text   = String(format: "%.1f", gradientLayer.endRadius)
     }
 
+    @IBAction func extendsPastStartChanged(sender: UISwitch) {
 
-    private func initRadialParams()
-    {
-        centerStartX.value  = Float(viewForGradientLayer.bounds.width) * 0.5
-        centerStartY.value  = Float(viewForGradientLayer.bounds.height) * 0.5
-        
-        centerEndX.value  = Float(viewForGradientLayer.bounds.width) * 0.5
-        centerEndY.value  = Float(viewForGradientLayer.bounds.height) * 0.5
-        
+        gradientLayer.extendsPastStart = sender.on
+    }
+    
+    @IBAction func extendsPastEndChanged(sender: UISwitch) {
+
+        gradientLayer.extendsPastEnd = sender.on
+    }
+    
+    @IBAction func radialSliderChanged(sender: UISlider) {
+        updateGradientLayer()
     }
     
     @IBAction func typeSwitchChanged(sender: UISwitch) {
-        if(sender.on){
-            gradientLayer.type = kOMGradientLayerOval
-
-        }else{
-            gradientLayer.type = kOMGradientLayerRadial
-        }
         
-        initRadialParams();
-        updateRadial()
+        gradientLayer.type = (sender.on) ? kOMGradientLayerOval : kOMGradientLayerRadial
+        
+        updateGradientLayer()
         gradientLayer.setNeedsDisplay();
         
     }
@@ -178,8 +200,7 @@ class CAGradientLayerViewController: UIViewController {
         gradientLayer.locations = locations.count > 1 ? locations : nil
         updateLocationSliderValueLabels()
         
-        initRadialParams();
-        updateRadial()
+        updateGradientLayer()
     }
     
     @IBAction func locationSliderChanged(sender: UISlider) {
@@ -196,21 +217,16 @@ class CAGradientLayerViewController: UIViewController {
         gradientLayer.locations = gradientLayerLocations
         updateLocationSliderValueLabels()
         
-        initRadialParams()
-        updateRadial()
+        updateGradientLayer()
     }
     
     // MARK: - Triggered actions
     
     func updateStartAndEndRadiusValueLabels() {
-        startRadiusSliderValueLabel.text = String(format: "%.1f", startRadiusSlider.value)
-        endRadiusSliderValueLabel.text = String(format: "%.1f", endRadiusSlider.value)
     }
     
     
     func updateStartAndEndCenterValueLabels() {
-        startCenterSliderValueLabel.text = "\(centerStartX.value),\(centerStartY.value)"
-        endCenterSliderValueLabel.text = "\(centerEndX.value),\(centerEndY.value)"
     }
     
     func updateLocationSliderValueLabels() {

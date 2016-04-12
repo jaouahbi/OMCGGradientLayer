@@ -10,9 +10,8 @@
 		35EE3CD81CBBAB60000B8ECA /* OMLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EE3CD61CBBAB60000B8ECA /* OMLayer.swift */; };
 		35EE3CD91CBBAB60000B8ECA /* OMRadialGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EE3CD71CBBAB60000B8ECA /* OMRadialGradientLayer.swift */; };
 		35EE3CDC1CBBAB67000B8ECA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EE3CDA1CBBAB67000B8ECA /* AppDelegate.swift */; };
-		35EE3CDD1CBBAB67000B8ECA /* CAGradientLayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EE3CDB1CBBAB67000B8ECA /* CAGradientLayerViewController.swift */; };
+		35EE3CDD1CBBAB67000B8ECA /* OMGradientLayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EE3CDB1CBBAB67000B8ECA /* OMGradientLayerViewController.swift */; };
 		35EE3CDF1CBBAC35000B8ECA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35EE3CDE1CBBAC35000B8ECA /* Images.xcassets */; };
-		35EE3CE21CBBAC43000B8ECA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35EE3CE01CBBAC43000B8ECA /* Info.plist */; };
 		35EE3CE31CBBAC43000B8ECA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35EE3CE11CBBAC43000B8ECA /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -20,7 +19,7 @@
 		35EE3CD61CBBAB60000B8ECA /* OMLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OMLayer.swift; sourceTree = "<group>"; };
 		35EE3CD71CBBAB60000B8ECA /* OMRadialGradientLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OMRadialGradientLayer.swift; sourceTree = "<group>"; };
 		35EE3CDA1CBBAB67000B8ECA /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		35EE3CDB1CBBAB67000B8ECA /* CAGradientLayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAGradientLayerViewController.swift; sourceTree = "<group>"; };
+		35EE3CDB1CBBAB67000B8ECA /* OMGradientLayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OMGradientLayerViewController.swift; sourceTree = "<group>"; };
 		35EE3CDE1CBBAC35000B8ECA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		35EE3CE01CBBAC43000B8ECA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35EE3CE11CBBAC43000B8ECA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -69,7 +68,7 @@
 				35EE3CE01CBBAC43000B8ECA /* Info.plist */,
 				35EE3CE11CBBAC43000B8ECA /* Main.storyboard */,
 				35EE3CDA1CBBAB67000B8ECA /* AppDelegate.swift */,
-				35EE3CDB1CBBAB67000B8ECA /* CAGradientLayerViewController.swift */,
+				35EE3CDB1CBBAB67000B8ECA /* OMGradientLayerViewController.swift */,
 				35EE3CD51CBBAB60000B8ECA /* OMRadialGradientLayer */,
 				D24791121A36BB95007AC991 /* Supporting Files */,
 			);
@@ -111,7 +110,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Scott Gardner";
 				TargetAttributes = {
 					D247910E1A36BB95007AC991 = {
@@ -144,7 +143,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				35EE3CE31CBBAC43000B8ECA /* Main.storyboard in Resources */,
-				35EE3CE21CBBAC43000B8ECA /* Info.plist in Resources */,
 				35EE3CDF1CBBAC35000B8ECA /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,7 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35EE3CDD1CBBAB67000B8ECA /* CAGradientLayerViewController.swift in Sources */,
+				35EE3CDD1CBBAB67000B8ECA /* OMGradientLayerViewController.swift in Sources */,
 				35EE3CDC1CBBAB67000B8ECA /* AppDelegate.swift in Sources */,
 				35EE3CD91CBBAB60000B8ECA /* OMRadialGradientLayer.swift in Sources */,
 				35EE3CD81CBBAB60000B8ECA /* OMLayer.swift in Sources */,
@@ -186,6 +184,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -253,6 +252,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/ExampleSwift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jom.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ExampleSwift;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -266,6 +266,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/ExampleSwift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jom.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ExampleSwift;
 			};
 			name = Release;
