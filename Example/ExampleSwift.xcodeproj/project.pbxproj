@@ -11,11 +11,11 @@
 		35EE3CDD1CBBAB67000B8ECA /* OMRadialGradientLayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EE3CDB1CBBAB67000B8ECA /* OMRadialGradientLayerViewController.swift */; };
 		35EE3CDF1CBBAC35000B8ECA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35EE3CDE1CBBAC35000B8ECA /* Images.xcassets */; };
 		35EE3CE31CBBAC43000B8ECA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35EE3CE11CBBAC43000B8ECA /* Main.storyboard */; };
-		35F0C5671CC574940076B308 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0C5621CC574940076B308 /* CALayer.swift */; };
-		35F0C5681CC574940076B308 /* CGColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0C5631CC574940076B308 /* CGColor.swift */; };
-		35F0C5691CC574940076B308 /* OMGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0C5641CC574940076B308 /* OMGradient.swift */; };
-		35F0C56A1CC574940076B308 /* OMLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0C5651CC574940076B308 /* OMLayer.swift */; };
-		35F0C56B1CC574940076B308 /* OMRadialGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0C5661CC574940076B308 /* OMRadialGradientLayer.swift */; };
+		35F0C5741CC5757B0076B308 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0C56F1CC5757B0076B308 /* CALayer.swift */; };
+		35F0C5751CC5757B0076B308 /* CGColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0C5701CC5757B0076B308 /* CGColor.swift */; };
+		35F0C5761CC5757B0076B308 /* OMGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0C5711CC5757B0076B308 /* OMGradient.swift */; };
+		35F0C5771CC5757B0076B308 /* OMLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0C5721CC5757B0076B308 /* OMLayer.swift */; };
+		35F0C5781CC5757B0076B308 /* OMRadialGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0C5731CC5757B0076B308 /* OMRadialGradientLayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,11 +24,11 @@
 		35EE3CDE1CBBAC35000B8ECA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		35EE3CE01CBBAC43000B8ECA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35EE3CE11CBBAC43000B8ECA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		35F0C5621CC574940076B308 /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
-		35F0C5631CC574940076B308 /* CGColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGColor.swift; sourceTree = "<group>"; };
-		35F0C5641CC574940076B308 /* OMGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OMGradient.swift; sourceTree = "<group>"; };
-		35F0C5651CC574940076B308 /* OMLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OMLayer.swift; sourceTree = "<group>"; };
-		35F0C5661CC574940076B308 /* OMRadialGradientLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OMRadialGradientLayer.swift; sourceTree = "<group>"; };
+		35F0C56F1CC5757B0076B308 /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
+		35F0C5701CC5757B0076B308 /* CGColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGColor.swift; sourceTree = "<group>"; };
+		35F0C5711CC5757B0076B308 /* OMGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OMGradient.swift; sourceTree = "<group>"; };
+		35F0C5721CC5757B0076B308 /* OMLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OMLayer.swift; sourceTree = "<group>"; };
+		35F0C5731CC5757B0076B308 /* OMRadialGradientLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OMRadialGradientLayer.swift; sourceTree = "<group>"; };
 		D247910F1A36BB95007AC991 /* ExampleSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -43,14 +43,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		35F0C5611CC574940076B308 /* OMRadialGradientLayer */ = {
+		35F0C56E1CC5757B0076B308 /* OMRadialGradientLayer */ = {
 			isa = PBXGroup;
 			children = (
-				35F0C5621CC574940076B308 /* CALayer.swift */,
-				35F0C5631CC574940076B308 /* CGColor.swift */,
-				35F0C5641CC574940076B308 /* OMGradient.swift */,
-				35F0C5651CC574940076B308 /* OMLayer.swift */,
-				35F0C5661CC574940076B308 /* OMRadialGradientLayer.swift */,
+				35F0C56F1CC5757B0076B308 /* CALayer.swift */,
+				35F0C5701CC5757B0076B308 /* CGColor.swift */,
+				35F0C5711CC5757B0076B308 /* OMGradient.swift */,
+				35F0C5721CC5757B0076B308 /* OMLayer.swift */,
+				35F0C5731CC5757B0076B308 /* OMRadialGradientLayer.swift */,
 			);
 			path = OMRadialGradientLayer;
 			sourceTree = "<group>";
@@ -74,7 +74,7 @@
 		D24791111A36BB95007AC991 /* ExampleSwift */ = {
 			isa = PBXGroup;
 			children = (
-				35F0C5611CC574940076B308 /* OMRadialGradientLayer */,
+				35F0C56E1CC5757B0076B308 /* OMRadialGradientLayer */,
 				35EE3CE01CBBAC43000B8ECA /* Info.plist */,
 				35EE3CE11CBBAC43000B8ECA /* Main.storyboard */,
 				35EE3CDA1CBBAB67000B8ECA /* AppDelegate.swift */,
@@ -163,13 +163,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35F0C5691CC574940076B308 /* OMGradient.swift in Sources */,
-				35F0C5671CC574940076B308 /* CALayer.swift in Sources */,
-				35F0C5681CC574940076B308 /* CGColor.swift in Sources */,
+				35F0C5761CC5757B0076B308 /* OMGradient.swift in Sources */,
+				35F0C5741CC5757B0076B308 /* CALayer.swift in Sources */,
+				35F0C5751CC5757B0076B308 /* CGColor.swift in Sources */,
 				35EE3CDD1CBBAB67000B8ECA /* OMRadialGradientLayerViewController.swift in Sources */,
-				35F0C56B1CC574940076B308 /* OMRadialGradientLayer.swift in Sources */,
+				35F0C5781CC5757B0076B308 /* OMRadialGradientLayer.swift in Sources */,
 				35EE3CDC1CBBAB67000B8ECA /* AppDelegate.swift in Sources */,
-				35F0C56A1CC574940076B308 /* OMLayer.swift in Sources */,
+				35F0C5771CC5757B0076B308 /* OMLayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
