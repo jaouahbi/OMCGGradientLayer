@@ -17,17 +17,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="deK-tR-y8G">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="deK-tR-y8G">
                                 <rect key="frame" x="0.0" y="64" width="320" height="121"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="121" id="rRH-K8-fOT"/>
-                                </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UlH-Nn-j6W">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UlH-Nn-j6W">
                                 <rect key="frame" x="0.0" y="185" width="320" height="383"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EP5-7j-UhX">
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EP5-7j-UhX">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="25" translatesAutoresizingMaskIntoConstraints="NO" id="3ir-sX-OBC">
@@ -120,7 +117,7 @@
                                             <constraint firstAttribute="height" constant="100" id="B9d-Cb-2Jb"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGy-3f-JT6">
+                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gGy-3f-JT6">
                                         <rect key="frame" x="0.0" y="100" width="320" height="269"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="glb-OR-TOP">
@@ -329,7 +326,6 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -341,6 +337,7 @@
                                     <constraint firstAttribute="trailing" secondItem="EP5-7j-UhX" secondAttribute="trailing" id="TXn-N9-CFV"/>
                                     <constraint firstAttribute="trailing" secondItem="gGy-3f-JT6" secondAttribute="trailing" id="Z39-T1-v6J"/>
                                     <constraint firstItem="EP5-7j-UhX" firstAttribute="leading" secondItem="UlH-Nn-j6W" secondAttribute="leading" id="gah-9I-Tvm"/>
+                                    <constraint firstAttribute="width" constant="320" id="zpz-lp-znf"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -349,10 +346,9 @@
                             <constraint firstAttribute="trailing" secondItem="deK-tR-y8G" secondAttribute="trailing" id="4PV-ys-u6Q"/>
                             <constraint firstItem="UlH-Nn-j6W" firstAttribute="top" secondItem="deK-tR-y8G" secondAttribute="bottom" id="7zT-hy-63o"/>
                             <constraint firstItem="deK-tR-y8G" firstAttribute="top" secondItem="aYa-cA-CqZ" secondAttribute="bottom" id="GLo-YT-QtS"/>
-                            <constraint firstAttribute="trailing" secondItem="UlH-Nn-j6W" secondAttribute="trailing" id="T9R-Kv-mGJ"/>
                             <constraint firstItem="sdC-SB-qof" firstAttribute="top" secondItem="UlH-Nn-j6W" secondAttribute="bottom" id="acp-iv-Acn"/>
+                            <constraint firstItem="UlH-Nn-j6W" firstAttribute="centerX" secondItem="aY5-vo-gvH" secondAttribute="centerX" id="ciP-jW-w3f"/>
                             <constraint firstItem="deK-tR-y8G" firstAttribute="leading" secondItem="aY5-vo-gvH" secondAttribute="leading" id="eWY-ET-s6s"/>
-                            <constraint firstItem="UlH-Nn-j6W" firstAttribute="leading" secondItem="aY5-vo-gvH" secondAttribute="leading" id="lGq-rt-EnE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Animated Gradient Layer" id="ZGO-HE-D9l">

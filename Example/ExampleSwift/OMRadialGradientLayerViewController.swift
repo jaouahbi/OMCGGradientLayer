@@ -52,8 +52,8 @@ class OMRadialGradientLayerViewController : UIViewController {
         centerEndX.value = Float(center.x)
         centerEndY.value = Float(center.y)
         
-        viewForGradientLayer.layer.borderWidth = 1.0
-        viewForGradientLayer.layer.borderColor = UIColor.blackColor().CGColor
+//        viewForGradientLayer.layer.borderWidth = 1.0
+//        viewForGradientLayer.layer.borderColor = UIColor.blackColor().CGColor
         
         setUpShapeLayer()
         
