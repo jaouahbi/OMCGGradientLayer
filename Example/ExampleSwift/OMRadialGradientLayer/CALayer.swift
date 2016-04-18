@@ -26,10 +26,9 @@
 
 import UIKit
 
-extension CALayer
+public extension CALayer
 {
-    func animationActionForKey(event:String!) -> CABasicAnimation!
-    {
+    func animationActionForKey(event:String!) -> CABasicAnimation! {
         let animation = CABasicAnimation(keyPath: event)
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         animation.fromValue = self.presentationLayer()!.valueForKey(event);

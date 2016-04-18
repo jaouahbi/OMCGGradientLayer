@@ -21,7 +21,7 @@
 //  Created by Jorge Ouahbi on 26/3/15.
 //
 //  Description:
-//  Simple derived CALayer class used as base class
+//  Derived CALayer class without implicit animations.
 
 
 import UIKit
@@ -30,9 +30,8 @@ import UIKit
 {
     var maskingPath : CGPathRef?
     
-    /// Radians
-    
-    var angleOrientation:Double = 0.0 {
+    // angle in radians
+    var angleOrientation : Double = 0.0 {
         didSet {
             self.transform = CATransform3DMakeRotation(CGFloat(angleOrientation), 0.0, 0.0, 1.0)
         }
@@ -42,7 +41,7 @@ import UIKit
         
         super.init()
         
-        self.contentsScale = UIScreen.mainScreen().scale
+        self.contentsScale              = UIScreen.mainScreen().scale
         self.needsDisplayOnBoundsChange = true;
         
         // https://github.com/danielamitay/iOS-App-Performance-Cheatsheet/blob/master/QuartzCore.md
@@ -51,9 +50,10 @@ import UIKit
         self.drawsAsynchronously = true
         self.allowsGroupOpacity  = false
         
-        // DEBUG
-        self.borderColor = UIColor.redColor().CGColor
-        self.borderWidth = 5
+        #if DEBUG
+            self.borderColor = UIColor.redColor().CGColor
+            self.borderWidth = 5
+        #endif
         
         // Disable animating view refreshes
         
@@ -76,10 +76,9 @@ import UIKit
         super.init(coder:aDecoder)
     }
     
-    
     func flipContextIfNeed(context:CGContext!) {
+        assert(context != nil, "nil CGContext")
         // Core Text Coordinate System and Core Graphics are OSX style
-        
         #if os(iOS)
             CGContextTranslateCTM(context, 0, self.bounds.size.height);
             CGContextScaleCTM(context, 1.0, -1.0);
@@ -88,33 +87,32 @@ import UIKit
     
     // Sets the clipping path of the given graphics context to mask the content.
     
-    func applyMaskToContext(ctx: CGContext!) {
-        
+    func applyMaskToContext(context: CGContext!) {
+        assert(context != nil, "nil CGContext")
         if let maskPath = self.maskingPath {
-            CGContextAddPath(ctx, maskPath);
-            CGContextClip(ctx);
+            CGContextAddPath(context, maskPath)
+            CGContextClip(context);
         }
     }
     
     override func drawInContext(ctx: CGContext) {
-        
+        super.drawInContext(ctx);
         // Clear the layer
-        
         CGContextClearRect(ctx, CGContextGetClipBoundingBox(ctx));
-        
         //applyMaskToContext(ctx)
     }
     
-    //DEBUG
+#if DEBUG
     override func display() {
         if ( self.hidden ) {
             print("[!] WARNING: hidden layer. \(self.name)")
         } else {
             if(self.bounds.isEmpty) {
-                print("[!]WARNING: empty layer. \(self.name)")
+                print("[!] WARNING: empty layer. \(self.name)")
             }else{
                 super.display()
             }
         }
     }
+#endif
 }
