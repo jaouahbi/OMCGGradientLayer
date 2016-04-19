@@ -1,6 +1,6 @@
 # OMRadialGradientLayer
 
-Radial gradient layer with animations
+Radial gradient layer with animatable properties
 
 [![Build Status](https://travis-ci.org/jaouahbi/OMRadialGradientLayer.svg?branch=master)](https://travis-ci.org/jaouahbi/OMRadialGradientLayer)
 
