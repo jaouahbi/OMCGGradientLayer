@@ -69,7 +69,7 @@
                                                     <action selector="radialSliderChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="MCf-i9-6l9"/>
                                                 </connections>
                                             </slider>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4G-6D-T47">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Center" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4G-6D-T47">
                                                 <rect key="frame" x="162" y="0.0" width="158" height="35"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -99,7 +99,7 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" fixedFrame="YES" text="Radius" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKA-6E-bZg">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" fixedFrame="YES" text="Radius" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKA-6E-bZg">
                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="35"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -132,6 +132,12 @@
                                                     <action selector="colorSwitchChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="YwZ-vE-ByE"/>
                                                 </connections>
                                             </switch>
+                                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4In-PB-m9w">
+                                                <rect key="frame" x="116" y="0.0" width="152" height="31"/>
+                                                <connections>
+                                                    <action selector="locationSliderChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="LRo-IU-vcz"/>
+                                                </connections>
+                                            </slider>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jci-MA-1Dh">
                                                 <rect key="frame" x="268" y="-1" width="51" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -149,8 +155,14 @@
                                                     <action selector="colorSwitchChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="xSg-Dp-MmE"/>
                                                 </connections>
                                             </switch>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIr-Bx-g5R">
-                                                <rect key="frame" x="268" y="68" width="51" height="32"/>
+                                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="oM1-eT-Ph9">
+                                                <rect key="frame" x="116" y="34" width="152" height="31"/>
+                                                <connections>
+                                                    <action selector="locationSliderChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="5SQ-cg-ocp"/>
+                                                </connections>
+                                            </slider>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYl-v6-cCG">
+                                                <rect key="frame" x="268" y="34" width="51" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -166,8 +178,14 @@
                                                     <action selector="colorSwitchChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="MHY-PG-T9N"/>
                                                 </connections>
                                             </switch>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYl-v6-cCG">
-                                                <rect key="frame" x="268" y="34" width="51" height="32"/>
+                                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="87Q-bN-BPa">
+                                                <rect key="frame" x="116" y="68" width="152" height="31"/>
+                                                <connections>
+                                                    <action selector="locationSliderChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="IPL-mj-UsY"/>
+                                                </connections>
+                                            </slider>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIr-Bx-g5R">
+                                                <rect key="frame" x="268" y="68" width="51" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -183,6 +201,12 @@
                                                     <action selector="colorSwitchChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="NOR-8t-1w3"/>
                                                 </connections>
                                             </switch>
+                                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Lpz-yL-aGR">
+                                                <rect key="frame" x="116" y="102" width="152" height="31"/>
+                                                <connections>
+                                                    <action selector="locationSliderChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="mgI-Jj-Ekk"/>
+                                                </connections>
+                                            </slider>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WkC-fV-p7g">
                                                 <rect key="frame" x="268" y="102" width="51" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -200,6 +224,12 @@
                                                     <action selector="colorSwitchChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="oBS-W5-3oX"/>
                                                 </connections>
                                             </switch>
+                                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="poY-cR-1ht">
+                                                <rect key="frame" x="116" y="136" width="152" height="31"/>
+                                                <connections>
+                                                    <action selector="locationSliderChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="sy5-oY-3pm"/>
+                                                </connections>
+                                            </slider>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyS-VG-s5H">
                                                 <rect key="frame" x="268" y="136" width="51" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -217,6 +247,12 @@
                                                     <action selector="colorSwitchChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="c4X-10-kU6"/>
                                                 </connections>
                                             </switch>
+                                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="WOu-F4-u0T">
+                                                <rect key="frame" x="116" y="170" width="152" height="31"/>
+                                                <connections>
+                                                    <action selector="locationSliderChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="Hi2-ye-ibE"/>
+                                                </connections>
+                                            </slider>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iwk-2B-T46">
                                                 <rect key="frame" x="268" y="170" width="51" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -228,53 +264,23 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m3N-aA-4JK">
-                                                <rect key="frame" x="268" y="204" width="51" height="32"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4In-PB-m9w">
-                                                <rect key="frame" x="116" y="0.0" width="152" height="31"/>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v6e-EL-37k">
+                                                <rect key="frame" x="66" y="204" width="51" height="31"/>
                                                 <connections>
-                                                    <action selector="locationSliderChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="LRo-IU-vcz"/>
+                                                    <action selector="colorSwitchChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="tuo-2r-fCJ"/>
                                                 </connections>
-                                            </slider>
-                                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="oM1-eT-Ph9">
-                                                <rect key="frame" x="116" y="34" width="152" height="31"/>
-                                                <connections>
-                                                    <action selector="locationSliderChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="5SQ-cg-ocp"/>
-                                                </connections>
-                                            </slider>
-                                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="87Q-bN-BPa">
-                                                <rect key="frame" x="116" y="68" width="152" height="31"/>
-                                                <connections>
-                                                    <action selector="locationSliderChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="IPL-mj-UsY"/>
-                                                </connections>
-                                            </slider>
-                                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Lpz-yL-aGR">
-                                                <rect key="frame" x="116" y="102" width="152" height="31"/>
-                                                <connections>
-                                                    <action selector="locationSliderChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="mgI-Jj-Ekk"/>
-                                                </connections>
-                                            </slider>
-                                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="poY-cR-1ht">
-                                                <rect key="frame" x="116" y="136" width="152" height="31"/>
-                                                <connections>
-                                                    <action selector="locationSliderChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="sy5-oY-3pm"/>
-                                                </connections>
-                                            </slider>
-                                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="WOu-F4-u0T">
-                                                <rect key="frame" x="116" y="170" width="152" height="31"/>
-                                                <connections>
-                                                    <action selector="locationSliderChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="Hi2-ye-ibE"/>
-                                                </connections>
-                                            </slider>
+                                            </switch>
                                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="0tP-7x-L4u">
                                                 <rect key="frame" x="116" y="204" width="152" height="31"/>
                                                 <connections>
                                                     <action selector="locationSliderChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="T8E-bd-Cig"/>
                                                 </connections>
                                             </slider>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m3N-aA-4JK">
+                                                <rect key="frame" x="268" y="204" width="51" height="32"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Extends start/end" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cP-qO-Eta">
                                                 <rect key="frame" x="147" y="237" width="44" height="31"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="9"/>
@@ -291,12 +297,6 @@
                                                 <rect key="frame" x="190" y="237" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="extendsPastStartChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="Ury-D6-WEc"/>
-                                                </connections>
-                                            </switch>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v6e-EL-37k">
-                                                <rect key="frame" x="66" y="204" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="colorSwitchChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="tuo-2r-fCJ"/>
                                                 </connections>
                                             </switch>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9UG-3n-3Fi">
@@ -377,18 +377,11 @@
                         <outlet property="startRadiusSliderValueLabel" destination="3ir-sX-OBC" id="JYk-ob-opK"/>
                         <outlet property="viewForGradientLayer" destination="deK-tR-y8G" id="DZZ-2J-q2u"/>
                         <outletCollection property="colorSwitches" destination="2qV-se-0nS" collectionClass="NSMutableArray" id="04b-l3-yuu"/>
-                        <outletCollection property="locationSliderValueLabels" destination="jci-MA-1Dh" collectionClass="NSMutableArray" id="oGC-t1-iFC"/>
                         <outletCollection property="colorSwitches" destination="Loc-tr-PfB" collectionClass="NSMutableArray" id="b8e-JE-OSq"/>
-                        <outletCollection property="locationSliderValueLabels" destination="rIr-Bx-g5R" collectionClass="NSMutableArray" id="kf1-Re-Cjv"/>
                         <outletCollection property="colorSwitches" destination="V9F-91-zga" collectionClass="NSMutableArray" id="h8L-tW-9Ep"/>
-                        <outletCollection property="locationSliderValueLabels" destination="eYl-v6-cCG" collectionClass="NSMutableArray" id="O4m-LG-S4x"/>
                         <outletCollection property="colorSwitches" destination="UNu-mJ-J0w" collectionClass="NSMutableArray" id="6hW-nu-nN8"/>
-                        <outletCollection property="locationSliderValueLabels" destination="WkC-fV-p7g" collectionClass="NSMutableArray" id="2M5-J9-2Cd"/>
                         <outletCollection property="colorSwitches" destination="Wa5-Pv-zwY" collectionClass="NSMutableArray" id="50Z-e8-INa"/>
-                        <outletCollection property="locationSliderValueLabels" destination="eyS-VG-s5H" collectionClass="NSMutableArray" id="Qua-rw-PCH"/>
                         <outletCollection property="colorSwitches" destination="SUi-Tf-rkU" collectionClass="NSMutableArray" id="k5f-SW-ijG"/>
-                        <outletCollection property="locationSliderValueLabels" destination="Iwk-2B-T46" collectionClass="NSMutableArray" id="GIj-nr-PcL"/>
-                        <outletCollection property="locationSliderValueLabels" destination="m3N-aA-4JK" collectionClass="NSMutableArray" id="Nd5-oK-zAL"/>
                         <outletCollection property="locationSliders" destination="4In-PB-m9w" collectionClass="NSMutableArray" id="CBJ-TK-2G0"/>
                         <outletCollection property="locationSliders" destination="oM1-eT-Ph9" collectionClass="NSMutableArray" id="MCx-ES-cm8"/>
                         <outletCollection property="locationSliders" destination="87Q-bN-BPa" collectionClass="NSMutableArray" id="Lkf-f6-m7x"/>
@@ -404,6 +397,13 @@
                         <outletCollection property="colorLabels" destination="ueX-J8-n8m" collectionClass="NSMutableArray" id="6gx-vm-mWI"/>
                         <outletCollection property="colorLabels" destination="g8s-mv-aMP" collectionClass="NSMutableArray" id="5H8-xf-f7J"/>
                         <outletCollection property="colorLabels" destination="ctM-WR-Hh9" collectionClass="NSMutableArray" id="frY-Ok-1O5"/>
+                        <outletCollection property="locationSliderValueLabels" destination="jci-MA-1Dh" id="7xY-bZ-aOr"/>
+                        <outletCollection property="locationSliderValueLabels" destination="eYl-v6-cCG" id="kJU-vJ-SuF"/>
+                        <outletCollection property="locationSliderValueLabels" destination="rIr-Bx-g5R" id="dTq-6r-KpZ"/>
+                        <outletCollection property="locationSliderValueLabels" destination="WkC-fV-p7g" id="4wJ-Aj-bZK"/>
+                        <outletCollection property="locationSliderValueLabels" destination="eyS-VG-s5H" id="4wf-oH-8ag"/>
+                        <outletCollection property="locationSliderValueLabels" destination="Iwk-2B-T46" id="OTl-iZ-hFh"/>
+                        <outletCollection property="locationSliderValueLabels" destination="m3N-aA-4JK" id="aT9-gm-eSH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UQk-dT-rF4" userLabel="First Responder" sceneMemberID="firstResponder"/>
