@@ -352,14 +352,28 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Animated Gradient Layer" id="ZGO-HE-D9l">
-                        <barButtonItem key="rightBarButtonItem" title="Mask" id="U0u-aG-Jae">
-                            <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="VZm-kI-Hv8">
-                                <rect key="frame" x="255" y="6" width="51" height="31"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="J1N-Ec-Apf">
+                            <view key="customView" contentMode="scaleToFill" id="dec-cQ-NHn">
+                                <rect key="frame" x="233" y="5" width="71" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="maskSwitchChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="Nv1-Rd-7hg"/>
-                                </connections>
-                            </switch>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="mask" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzZ-Tz-2Cr">
+                                        <rect key="frame" x="0.0" y="1" width="22" height="32"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CqQ-Nk-xJu">
+                                        <rect key="frame" x="21" y="1" width="51" height="31"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="maskSwitchChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="th2-tN-t3b"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -397,13 +411,13 @@
                         <outletCollection property="colorLabels" destination="ueX-J8-n8m" collectionClass="NSMutableArray" id="6gx-vm-mWI"/>
                         <outletCollection property="colorLabels" destination="g8s-mv-aMP" collectionClass="NSMutableArray" id="5H8-xf-f7J"/>
                         <outletCollection property="colorLabels" destination="ctM-WR-Hh9" collectionClass="NSMutableArray" id="frY-Ok-1O5"/>
-                        <outletCollection property="locationSliderValueLabels" destination="jci-MA-1Dh" id="7xY-bZ-aOr"/>
-                        <outletCollection property="locationSliderValueLabels" destination="eYl-v6-cCG" id="kJU-vJ-SuF"/>
-                        <outletCollection property="locationSliderValueLabels" destination="rIr-Bx-g5R" id="dTq-6r-KpZ"/>
-                        <outletCollection property="locationSliderValueLabels" destination="WkC-fV-p7g" id="4wJ-Aj-bZK"/>
-                        <outletCollection property="locationSliderValueLabels" destination="eyS-VG-s5H" id="4wf-oH-8ag"/>
-                        <outletCollection property="locationSliderValueLabels" destination="Iwk-2B-T46" id="OTl-iZ-hFh"/>
-                        <outletCollection property="locationSliderValueLabels" destination="m3N-aA-4JK" id="aT9-gm-eSH"/>
+                        <outletCollection property="locationSliderValueLabels" destination="jci-MA-1Dh" collectionClass="NSMutableArray" id="7xY-bZ-aOr"/>
+                        <outletCollection property="locationSliderValueLabels" destination="eYl-v6-cCG" collectionClass="NSMutableArray" id="kJU-vJ-SuF"/>
+                        <outletCollection property="locationSliderValueLabels" destination="rIr-Bx-g5R" collectionClass="NSMutableArray" id="dTq-6r-KpZ"/>
+                        <outletCollection property="locationSliderValueLabels" destination="WkC-fV-p7g" collectionClass="NSMutableArray" id="4wJ-Aj-bZK"/>
+                        <outletCollection property="locationSliderValueLabels" destination="eyS-VG-s5H" collectionClass="NSMutableArray" id="4wf-oH-8ag"/>
+                        <outletCollection property="locationSliderValueLabels" destination="Iwk-2B-T46" collectionClass="NSMutableArray" id="OTl-iZ-hFh"/>
+                        <outletCollection property="locationSliderValueLabels" destination="m3N-aA-4JK" collectionClass="NSMutableArray" id="aT9-gm-eSH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UQk-dT-rF4" userLabel="First Responder" sceneMemberID="firstResponder"/>

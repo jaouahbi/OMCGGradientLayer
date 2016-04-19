@@ -1,22 +1,25 @@
 
 import Foundation
 import CoreGraphics
+//import UIKit
 
 @objc public class OMGradient : NSObject
 {
-    private(set) var gradientCached  : CGGradientRef?
-    
+    private(set) var gradient  : CGGradientRef?
     var locations : [CGFloat]? {
-        didSet { gradientCached = nil }
+        didSet {
+            gradient = nil
+        }
     }
     var colors: [CGColor] = [] {
-        didSet { gradientCached = nil }
+        didSet {
+            gradient = nil
+        }
     }
     
-    convenience init(colors:[CGColor], locations:[CGFloat]?) {
-        self.init()
-        self.colors = colors
-        self.locations = locations
+    func setColors(colors:[CGColor], withLocations:[CGFloat]?) {
+        self.colors     = colors
+        self.locations  = withLocations
     }
     
     func getGradient() -> CGGradientRef? {
@@ -27,12 +30,11 @@ import CoreGraphics
         let numberOfLocations:Int
         
         if (colors.count > 0) {
-            if let gradientCached = gradientCached {
-#if DEBUG
-                print("*** hit cached gradient")
-#endif
+
+            if let gradientCached = self.gradient {
                 return gradientCached
             }
+            
             if locations != nil {
                 numberOfLocations = min(locations!.count, colors.count)
             } else {
@@ -71,18 +73,21 @@ import CoreGraphics
                     
                     if (locations != nil) {
                         
-                        gradientCached = CGGradientCreateWithColorComponents(colorSpace,
+                        gradient = CGGradientCreateWithColorComponents(colorSpace,
                                                                             UnsafePointer<CGFloat>(components!),
                                                                             UnsafePointer<CGFloat>(locations!),
                                                                             numberOfLocations);
                     } else {
-                        gradientCached = CGGradientCreateWithColorComponents(colorSpace,
+                        gradient = CGGradientCreateWithColorComponents(colorSpace,
                                                                             UnsafePointer<CGFloat>(components!),
                                                                             nil,
                                                                             numberOfLocations);
                     }
                     
-                    return gradientCached;
+                    //  add to a hash table (cache)
+                    // self.cache.setValue(gradient, forKey: "\(self.hash)")
+                    
+                    return gradient;
                 }
             }
         }

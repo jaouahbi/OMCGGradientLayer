@@ -56,7 +56,6 @@ import UIKit
         #endif
         
         // Disable animating view refreshes
-        
         self.actions = [
             "position"      :    NSNull(),
             "bounds"        :    NSNull(),
@@ -76,17 +75,13 @@ import UIKit
         super.init(coder:aDecoder)
     }
     
-    func flipContextIfNeed(context:CGContext!) {
+    func flipContext(context:CGContext!) {
         assert(context != nil, "nil CGContext")
-        // Core Text Coordinate System and Core Graphics are OSX style
-        #if os(iOS)
-            CGContextTranslateCTM(context, 0, self.bounds.size.height);
-            CGContextScaleCTM(context, 1.0, -1.0);
-        #endif
+        CGContextTranslateCTM(context, 0, self.bounds.size.height);
+        CGContextScaleCTM(context, 1.0, -1.0);
     }
     
     // Sets the clipping path of the given graphics context to mask the content.
-    
     func applyMaskToContext(context: CGContext!) {
         assert(context != nil, "nil CGContext")
         if let maskPath = self.maskingPath {
@@ -99,12 +94,15 @@ import UIKit
         super.drawInContext(ctx);
         // Clear the layer
         CGContextClearRect(ctx, CGContextGetClipBoundingBox(ctx));
+        if (!self.contentsAreFlipped()) {
+           self.flipContext(ctx)
+        }
         //applyMaskToContext(ctx)
     }
     
 #if DEBUG
     override func display() {
-        if ( self.hidden ) {
+        if (self.hidden) {
             print("[!] WARNING: hidden layer. \(self.name)")
         } else {
             if(self.bounds.isEmpty) {
