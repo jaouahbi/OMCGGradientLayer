@@ -6,12 +6,12 @@ Radial gradient layer with animations
 
 ## Features
 
-- [x] Radial gradient layer animatable properties
+- [x] Radial gradient layer with animatable properties
 
 ## Requirements
 
-- iOS 7.0+
-- Xcode 6.3
+- iOS 8.0+
+- Xcode 7.3
 
 ## Communication
 
