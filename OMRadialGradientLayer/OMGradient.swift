@@ -1,11 +1,10 @@
-
 import Foundation
 import CoreGraphics
-//import UIKit
 
 @objc public class OMGradient : NSObject
 {
     private(set) var gradient  : CGGradientRef?
+    
     var locations : [CGFloat]? {
         didSet {
             gradient = nil
@@ -30,8 +29,8 @@ import CoreGraphics
         let numberOfLocations:Int
         
         if (colors.count > 0) {
-
             if let gradientCached = self.gradient {
+                // if nothing has been changed, return the cached gradient
                 return gradientCached
             }
             
@@ -44,21 +43,18 @@ import CoreGraphics
             
             if (numberOfLocations > 0) {
                 
-                // analize one color
+                // Analize one color
                 let colorRef       = colors.first
                 numberOfComponents = Int(CGColorGetNumberOfComponents(colorRef))
-                colorSpace         = colorRef!.colorSpace
+                colorSpace         = CGColorGetColorSpace(colorRef)!
                 
                 if (numberOfComponents > 0) {
-                    
                     components = [CGFloat](count: numberOfLocations * numberOfComponents, repeatedValue: 0.0)
-                    
-                    
                     for locationIndex in 0 ..< numberOfLocations {
                         let color = colors[locationIndex]
-                        
+                        // sanity check
                         assert(numberOfComponents == Int(CGColorGetNumberOfComponents(color)))
-                        assert(CGColorSpaceGetModel(color.colorSpace) == CGColorSpaceGetModel(colorSpace));
+                        assert(CGColorSpaceGetModel(CGColorGetColorSpace(color)) == CGColorSpaceGetModel(colorSpace));
                         
                         let colorComponents = CGColorGetComponents(color);
                         
@@ -67,12 +63,10 @@ import CoreGraphics
                         }
                     }
                     
-                    //
                     // If locations is NULL, the first color in colors is assigned to location 0, the last color incolors is assigned
                     // to location 1, and intervening colors are assigned locations that are at equal intervals in between.
                     
                     if (locations != nil) {
-                        
                         gradient = CGGradientCreateWithColorComponents(colorSpace,
                                                                             UnsafePointer<CGFloat>(components!),
                                                                             UnsafePointer<CGFloat>(locations!),
@@ -83,34 +77,11 @@ import CoreGraphics
                                                                             nil,
                                                                             numberOfLocations);
                     }
-                    
-                    //  add to a hash table (cache)
-                    // self.cache.setValue(gradient, forKey: "\(self.hash)")
-                    
                     return gradient;
                 }
             }
         }
-        
         return nil
     }
-}
-
-func ==(lhs: Array<CGColor>, rhs: Array<CGColor>) -> Bool {
-    var equ = true
-    if(lhs.count != rhs.count){
-        return false;
-    }
-    for i in 0 ..< lhs.count {
-        if(!CGColorEqualToColor(lhs[i],rhs[i])){
-            equ = false
-            break;
-        }
-    }
-    return equ
-}
-
-func !=(lhs: Array<CGColor>, rhs: Array<CGColor>) -> Bool {
-    return !(lhs == rhs);
 }
 

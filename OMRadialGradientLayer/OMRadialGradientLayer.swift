@@ -44,7 +44,7 @@ private struct OMRadialGradientLayerProperties {
 let kOMRadialGradientLayerRadial: String  = "radial"
 let kOMRadialGradientLayerOval: String    = "oval"
 
-@objc class OMRadialGradientLayer : OMLayer
+@objc class OMRadialGradientLayer : CALayer
 {
     private(set) var gradient:OMGradient? = OMGradient()
     
@@ -62,7 +62,6 @@ let kOMRadialGradientLayerOval: String    = "oval"
             self.setNeedsDisplay()
         }
     }
-    
     // An optional array of CGFloat objects defining the location of each
     // gradient stop as a value in the range [0,1]. The values must be
     // monotonically increasing. If a nil array is given, the stops are
@@ -75,14 +74,13 @@ let kOMRadialGradientLayerOval: String    = "oval"
             self.setNeedsDisplay()
         }
     }
-    
     // The kind of gradient that will be drawn. Default value is `radial'
     var type : String! = kOMRadialGradientLayerRadial {
         didSet {
             self.setNeedsDisplay();
         }
     }
-    
+    //Defaults to CGPointZero. Animatable.
     var startCenter: CGPoint = CGPointZero {
         didSet {
             startCenterRatio.x = startCenter.x / bounds.size.width;
@@ -90,6 +88,7 @@ let kOMRadialGradientLayerOval: String    = "oval"
             self.setNeedsDisplay();
         }
     }
+    //Defaults to CGPointZero. Animatable.
     var endCenter: CGPoint = CGPointZero {
         didSet{
             endCenterRatio.x = endCenter.x / bounds.size.width;
@@ -97,21 +96,22 @@ let kOMRadialGradientLayerOval: String    = "oval"
             self.setNeedsDisplay();
         }
     }
+    //Defaults to 0. Animatable.
     var startRadius: CGFloat = 0 {
         didSet {
             startRadiusRatio = Double(startRadius / min(bounds.size.height,bounds.size.width));
             self.setNeedsDisplay();
         }
     }
+    //Defaults to 0. Animatable.
     var endRadius: CGFloat = 0 {
         didSet {
             endRadiusRatio = Double(endRadius / min(bounds.size.height,bounds.size.width));
             self.setNeedsDisplay();
         }
     }
-    
-    var options: CGGradientDrawingOptions = CGGradientDrawingOptions(rawValue:0)
-    {
+    //Defaults to 0. Animatable.
+    var options: CGGradientDrawingOptions = CGGradientDrawingOptions(rawValue:0) {
         didSet {
             self.setNeedsDisplay()
         }
@@ -157,6 +157,24 @@ let kOMRadialGradientLayerOval: String    = "oval"
         }
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder:aDecoder)
+    }
+    
+    convenience init(type:String!) {
+        self.init()
+        self.type = type
+    }
+    
+    // MARK: - Object Overrides
+    
+    override init() {
+        super.init()
+        self.allowsEdgeAntialiasing     = true
+        self.contentsScale              = UIScreen.mainScreen().scale
+        self.needsDisplayOnBoundsChange = true;
+    }
+    
     override init(layer: AnyObject) {
         super.init(layer: layer)
         if let other = layer as? OMRadialGradientLayer {
@@ -174,20 +192,6 @@ let kOMRadialGradientLayerOval: String    = "oval"
             self.options     = other.options
             self.gradient    = other.gradient
         }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder:aDecoder)
-    }
-    
-    convenience init(type:String!) {
-        self.init()
-        self.type = type
-    }
-    
-    override init() {
-        super.init()
-        self.allowsEdgeAntialiasing = true
     }
     
     override class func needsDisplayForKey(event: String) -> Bool {
@@ -215,7 +219,6 @@ let kOMRadialGradientLayerOval: String    = "oval"
         }
         return super.actionForKey(event)
     }
-    
     
     override func drawInContext(ctx: CGContext) {
         
@@ -321,5 +324,43 @@ let kOMRadialGradientLayerOval: String    = "oval"
             }
             return str
         }
+    }
+    
+    // MARK: - Animation Helpers
+    
+    func animationActionForKey(event:String!) -> CABasicAnimation! {
+        let animation = CABasicAnimation(keyPath: event)
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.fromValue = self.presentationLayer()!.valueForKey(event);
+        return animation
+    }
+    
+    func animateKeyPath(keyPath : String, fromValue : AnyObject?, toValue:AnyObject?, beginTime:NSTimeInterval, duration:NSTimeInterval, delegate:AnyObject?)
+    {
+        let animation = CABasicAnimation(keyPath:keyPath);
+        
+        var currentValue: AnyObject? = self.presentationLayer()?.valueForKey(keyPath)
+        
+        if (currentValue == nil) {
+            currentValue = fromValue
+        }
+        
+        animation.fromValue = currentValue
+        animation.toValue   = toValue
+        animation.delegate  = delegate
+        
+        if(duration > 0.0){
+            animation.duration = duration
+        }
+        if(beginTime > 0.0){
+            animation.beginTime = beginTime
+        }
+        
+        animation.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionLinear)
+        animation.setValue(self,forKey:keyPath)
+        
+        self.addAnimation(animation, forKey:keyPath)
+        
+        self.setValue(toValue,forKey:keyPath)
     }
 }

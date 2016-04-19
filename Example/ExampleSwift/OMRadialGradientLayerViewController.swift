@@ -3,6 +3,37 @@ import UIKit
 
 let kDefaultAnimationDuration:NSTimeInterval = 5.0
 
+
+public extension CGColor {
+    class func rainbow(numberOfSteps:Int, hue:Double = 0.0) ->  Array<CGColorRef>!{
+        
+        var colors:Array<CGColorRef> = []
+        let iNumberOfSteps = (1.0 - hue) / Double(numberOfSteps)
+        for (var hue:Double = hue; hue < 1.0; hue += iNumberOfSteps) {
+            if(colors.count == numberOfSteps){
+                break
+            }
+            #if os(OSX)
+                lcolors.append(NSColor(hue: CGFloat(hue),
+                    saturation:CGFloat(1.0),
+                    brightness:CGFloat(1.0),
+                    alpha:CGFloat(1.0)).CGColor)
+            #else
+                colors.append(UIColor(hue: CGFloat(hue),
+                    saturation:CGFloat(1.0),
+                    brightness:CGFloat(1.0),
+                    alpha:CGFloat(1.0)).CGColor)
+                
+            #endif
+        }
+        
+        assert(colors.count == numberOfSteps,
+               "Unexpected number of rainbow colors \(colors.count). Expecting \(numberOfSteps)")
+        
+        return colors
+    }
+}
+
 class OMRadialGradientLayerViewController : UIViewController {
     
     @IBOutlet weak var centerStartX:  UISlider!
