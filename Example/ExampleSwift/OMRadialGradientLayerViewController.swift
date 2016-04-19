@@ -370,13 +370,13 @@ class OMRadialGradientLayerViewController : UIViewController {
             let enable = drand48() < 0.5 ? true: false;
             
             if (enable) {
+                
                 let frndr = CGFloat(drand48())
                 let frndg = CGFloat(drand48())
                 let frndb = CGFloat(drand48())
         
                 colors[index] = UIColor(red: frndr, green: frndg, blue: frndb, alpha: 1.0).CGColor
-        
-
+    
                 locationSliders[index].value = Float(drand48())
                 
                 colorLabels[index].layer.backgroundColor = self.colors[index]
