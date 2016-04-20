@@ -20,17 +20,16 @@
 //
 //  Created by Jorge Ouahbi on 4/3/15.
 //
-//  0.1 (15-04-2015)
-//      Now, all the properties are animatables.
-//  0.2 (13-05-2015)
-//      Added the oval type
+//  0.1.0 (13-06-2016)
+//      Now, all the properties are animatables
 //      Fixed error condition. When the locations count was less than the colors count.
+//      Removed the oval type
 //
 //
+
 import UIKit
 
 // Animatable Properties
-
 private struct OMRadialGradientLayerProperties {
     
     static var startCenter  = "startCenter"
@@ -42,21 +41,13 @@ private struct OMRadialGradientLayerProperties {
 };
 
 let kOMRadialGradientLayerRadial: String  = "radial"
-let kOMRadialGradientLayerOval: String    = "oval"
 
 @objc class OMRadialGradientLayer : CALayer
 {
     private(set) var gradient:OMGradient? = OMGradient()
     
-    private var startCenterRatio : CGPoint = CGPointZero
-    private var endCenterRatio   : CGPoint = CGPointZero
-    
-    private var startRadiusRatio : Double = 0
-    private var endRadiusRatio   : Double = 0
-    
     // The array of CGColorRef objects defining the color of each gradient
     // stop. Defaults to nil. Animatable.
-    
     var colors: [CGColor] = [] {
         didSet {
             self.setNeedsDisplay()
@@ -68,7 +59,6 @@ let kOMRadialGradientLayerOval: String    = "oval"
     // assumed to spread uniformly across the [0,1] range. When rendered,
     // the colors are mapped to the output colorspace before being
     // interpolated. Defaults to nil. Animatable.
-    
     var locations : [CGFloat]? = nil {
         didSet {
             self.setNeedsDisplay()
@@ -83,30 +73,24 @@ let kOMRadialGradientLayerOval: String    = "oval"
     //Defaults to CGPointZero. Animatable.
     var startCenter: CGPoint = CGPointZero {
         didSet {
-            startCenterRatio.x = startCenter.x / bounds.size.width;
-            startCenterRatio.y = startCenter.y / bounds.size.height;
             self.setNeedsDisplay();
         }
     }
     //Defaults to CGPointZero. Animatable.
     var endCenter: CGPoint = CGPointZero {
         didSet{
-            endCenterRatio.x = endCenter.x / bounds.size.width;
-            endCenterRatio.y = endCenter.y / bounds.size.height;
             self.setNeedsDisplay();
         }
     }
     //Defaults to 0. Animatable.
     var startRadius: CGFloat = 0 {
         didSet {
-            startRadiusRatio = Double(startRadius / min(bounds.size.height,bounds.size.width));
             self.setNeedsDisplay();
         }
     }
     //Defaults to 0. Animatable.
     var endRadius: CGFloat = 0 {
         didSet {
-            endRadiusRatio = Double(endRadius / min(bounds.size.height,bounds.size.width));
             self.setNeedsDisplay();
         }
     }
@@ -116,6 +100,7 @@ let kOMRadialGradientLayerOval: String    = "oval"
             self.setNeedsDisplay()
         }
     }
+    // MARK: - Object Helpers
     
     var extendsPastStart : Bool  {
         set(newValue) {
@@ -184,7 +169,7 @@ let kOMRadialGradientLayerOval: String    = "oval"
             self.locations   = other.locations
             self.type        = other.type
             
-            // radial and oval
+            // radial gradient properties
             self.startCenter = other.startCenter
             self.startRadius = other.startRadius
             self.endCenter   = other.endCenter
@@ -215,20 +200,12 @@ let kOMRadialGradientLayerOval: String    = "oval"
             event == OMRadialGradientLayerProperties.endCenter   ||
             event == OMRadialGradientLayerProperties.endRadius) {
             return animationActionForKey(event);
-            
         }
         return super.actionForKey(event)
     }
     
     override func drawInContext(ctx: CGContext) {
-        
-        super.drawInContext(ctx)
-        
-        var startCenter : CGPoint = CGPoint(x: bounds.size.width  * startCenterRatio.x, y: bounds.size.height * startCenterRatio.y)
-        var endCenter   : CGPoint = CGPoint(x: bounds.size.width  * endCenterRatio.x, y: bounds.size.height * endCenterRatio.y);
-        
-        let minRadius = startRadius * CGFloat(startRadiusRatio);
-        let maxRadius = endRadius   * CGFloat(endRadiusRatio);
+            super.drawInContext(ctx)
 
         if let player = self.presentationLayer() as? OMRadialGradientLayer {
 #if DEBUG
@@ -248,53 +225,19 @@ let kOMRadialGradientLayerOval: String    = "oval"
         if let gradient = self.gradient!.getGradient() {
             
             // Draw the radial gradient
+            
             if (self.type == kOMRadialGradientLayerRadial) {
 #if DEBUG
-                print("Drawing \(self.type) gradient\nstarCenter: \(startCenter)\nendCenter: \(endCenter)\nminRadius: \(minRadius)\n maxRadius: \(maxRadius)\nbounds: \(self.bounds.integral)\nanchorPoint: \(self.anchorPoint)")
+                print("Drawing \(self.type) gradient\nstarCenter: \(startCenter)\nendCenter: \(endCenter)\nstartRadius: \(startRadius)\n endRadius: \(endRadius)\nbounds: \(self.bounds.integral)\nanchorPoint: \(self.anchorPoint)")
 #endif
-                
                 CGContextDrawRadialGradient(ctx,
                                             gradient,
                                             startCenter,
-                                            minRadius ,
+                                            startRadius ,
                                             endCenter,
-                                            maxRadius ,
+                                            endRadius ,
                                             options);
                 
-            }
-            //
-            // TODO: remove this code and use a user supply transform for draw the gradient
-            //
-            else if( self.type == kOMRadialGradientLayerOval)
-            {
-                // Scaling transformation and keeping track of the inverse
-                
-                let scaleT    = CGAffineTransformMakeScale(2, 1.0);
-                let invScaleT = CGAffineTransformInvert(scaleT);
-                
-                // Extract the Sx and Sy elements from the inverse matrix
-                // (See the Quartz documentation for the math behind the matrices)
-                let invS = CGPoint(x:invScaleT.a, y:invScaleT.d);
-                
-                
-                // Transform center and radius of gradient with the inverse
-                let ovalStartCenter = CGPointMake(startCenter.x * invS.x, startCenter.y * invS.y);
-                let ovalEndCenter   = CGPointMake(endCenter.x   * invS.x, endCenter.y   * invS.y);
-                let ovalStartRadius = minRadius * invS.x;
-                let ovalEndRadius   = maxRadius * invS.x;
-                
-                // Draw the gradient with the scale transform on the context
-                CGContextScaleCTM(ctx, scaleT.a, scaleT.d);
-                CGContextDrawRadialGradient(ctx,
-                                            gradient,
-                                            ovalStartCenter,
-                                            ovalStartRadius,
-                                            ovalEndCenter,
-                                            ovalEndRadius,
-                                            options);
-                
-                // Reset the context
-                CGContextScaleCTM(ctx, invS.x, invS.y);
             }
         }
     }
@@ -302,6 +245,7 @@ let kOMRadialGradientLayerOval: String    = "oval"
     override var description:String {
         
         get {
+            
             var str:String = "type: \(self.type)"
             
             if (locations != nil) {
@@ -312,7 +256,7 @@ let kOMRadialGradientLayerOval: String    = "oval"
                 str += "\(colors)"
             }
             
-            if (type == kOMRadialGradientLayerRadial || type == kOMRadialGradientLayerOval) {
+            if (type == kOMRadialGradientLayerRadial) {
                 str += " center from : \(startCenter) to \(endCenter), radius from : \(startRadius) to \(endRadius)"
             }
             
@@ -326,7 +270,7 @@ let kOMRadialGradientLayerOval: String    = "oval"
         }
     }
     
-    // MARK: - Animation Helpers
+    // MARK: - CALayer Animation Helpers
     
     func animationActionForKey(event:String!) -> CABasicAnimation! {
         let animation = CABasicAnimation(keyPath: event)

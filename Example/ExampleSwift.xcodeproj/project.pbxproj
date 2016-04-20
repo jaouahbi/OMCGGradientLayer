@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		35F0C59D1CC6D53B0076B308 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0C5951CC6D53B0076B308 /* AppDelegate.swift */; };
 		35F0C59E1CC6D53B0076B308 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35F0C5991CC6D53B0076B308 /* Images.xcassets */; };
-		35F0C59F1CC6D53B0076B308 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35F0C59A1CC6D53B0076B308 /* Info.plist */; };
 		35F0C5A01CC6D53B0076B308 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35F0C59B1CC6D53B0076B308 /* Main.storyboard */; };
 		35F0C5A11CC6D53B0076B308 /* OMRadialGradientLayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0C59C1CC6D53B0076B308 /* OMRadialGradientLayerViewController.swift */; };
 		35F0C5A61CC6D55C0076B308 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 35F0C5A31CC6D55C0076B308 /* LICENSE */; };
@@ -140,7 +139,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				35F0C5A01CC6D53B0076B308 /* Main.storyboard in Resources */,
-				35F0C59F1CC6D53B0076B308 /* Info.plist in Resources */,
 				35F0C5A61CC6D55C0076B308 /* LICENSE in Resources */,
 				35F0C59E1CC6D53B0076B308 /* Images.xcassets in Resources */,
 			);

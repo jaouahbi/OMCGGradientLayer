@@ -315,11 +315,6 @@ class OMRadialGradientLayerViewController : UIViewController {
         updateGradientLayer()
     }
     
-    @IBAction func typeSwitchChanged(sender: UISwitch) {
-        
-        gradientLayer.type = (sender.on) ? kOMRadialGradientLayerRadial : kOMRadialGradientLayerOval
-        updateGradientLayer()
-    }
     
     @IBAction func animateSwitchChanged(sender: UISwitch) {
         self.animate = sender.on;

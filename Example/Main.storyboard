@@ -281,47 +281,41 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Extends start/end" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cP-qO-Eta">
-                                                <rect key="frame" x="147" y="237" width="44" height="31"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Extends start/end" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cP-qO-Eta">
+                                                <rect key="frame" x="116" y="237" width="53" height="31"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HhA-4k-5Ng">
-                                                <rect key="frame" x="240" y="237" width="51" height="31"/>
+                                                <rect key="frame" x="218" y="237" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="extendsPastEndChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="po3-IO-e5T"/>
                                                 </connections>
                                             </switch>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5OB-Rf-U3p">
-                                                <rect key="frame" x="190" y="237" width="51" height="31"/>
+                                                <rect key="frame" x="168" y="237" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="extendsPastStartChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="Ury-D6-WEc"/>
                                                 </connections>
                                             </switch>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9UG-3n-3Fi">
-                                                <rect key="frame" x="96" y="237" width="51" height="31"/>
+                                                <rect key="frame" x="66" y="237" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="animateSwitchChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="iE7-EP-IGL"/>
                                                 </connections>
                                             </switch>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Kl-ud-uQt">
-                                                <rect key="frame" x="45" y="237" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="typeSwitchChanged:" destination="dsp-wU-3jn" eventType="valueChanged" id="7Cn-2a-deM"/>
-                                                </connections>
-                                            </switch>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRb-Ed-Qga">
-                                                <rect key="frame" x="290" y="237" width="30" height="32"/>
+                                                <rect key="frame" x="268" y="237" width="52" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                                                <state key="normal" title="RND"/>
+                                                <state key="normal" title="Randomize"/>
                                                 <connections>
                                                     <action selector="randomButtonTouchUpInside:" destination="dsp-wU-3jn" eventType="touchUpInside" id="cKf-U5-8wq"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Oval/Radial Animate" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98w-Sf-EmQ">
-                                                <rect key="frame" x="0.0" y="237" width="45" height="31"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Animate the gradient" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98w-Sf-EmQ">
+                                                <rect key="frame" x="0.0" y="237" width="66" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -363,7 +357,7 @@
                                         <rect key="frame" x="0.0" y="1" width="22" height="32"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="8"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CqQ-Nk-xJu">
