@@ -1,6 +1,6 @@
 # OMRadialGradientLayer
 
-Radial gradient layer with animatable properties
+Radial gradient layer with animatable properties in Swift
 
 [![Build Status](https://travis-ci.org/jaouahbi/OMRadialGradientLayer.svg?branch=master)](https://travis-ci.org/jaouahbi/OMRadialGradientLayer)
 
@@ -20,6 +20,10 @@ Open a issue.
 ## Installation
 
 > To use OMRadialGradientLayer with a project , you must include all Swift files located inside the `OMRadialGradientLayer` directory directly in your project.
+
+## CocoaPods Installation
+
+> Add pod 'OMRadialGradientLayer' to your Podfile
 
 * * *
 
