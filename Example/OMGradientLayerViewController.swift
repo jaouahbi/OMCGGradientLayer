@@ -1,40 +1,47 @@
 import UIKit
 
 
-let kDefaultAnimationDuration:NSTimeInterval = 5.0
+let kDefaultAnimationDuration:TimeInterval = 5.0
 
 
-public extension CGColor {
-    class func rainbow(numberOfSteps:Int, hue:Double = 0.0) ->  Array<CGColorRef>!{
+/// Rainbow
+
+extension UIColor
+{
+    /// Returns a array of the complete hue color spectre (0 - 360)
+    ///
+    /// - param: number of hue UIColor steps
+    /// - param: start UIColor hue
+    /// - returns: UIColor array
+    
+    
+    class func rainbow(_ numberOfSteps:Int, hue:Double = 0.0) -> [UIColor]!{
         
-        var colors:Array<CGColorRef> = []
-        let iNumberOfSteps = (1.0 - hue) / Double(numberOfSteps)
-        for (var hue:Double = hue; hue < 1.0; hue += iNumberOfSteps) {
+        var colors:[UIColor] = []
+        
+        let iNumberOfSteps =  1.0 / Double(numberOfSteps)
+        var hue:Double = hue
+        while hue < 1.0 {
             if(colors.count == numberOfSteps){
                 break
             }
-            #if os(OSX)
-                lcolors.append(NSColor(hue: CGFloat(hue),
-                    saturation:CGFloat(1.0),
-                    brightness:CGFloat(1.0),
-                    alpha:CGFloat(1.0)).CGColor)
-            #else
-                colors.append(UIColor(hue: CGFloat(hue),
-                    saturation:CGFloat(1.0),
-                    brightness:CGFloat(1.0),
-                    alpha:CGFloat(1.0)).CGColor)
-                
-            #endif
+            
+            let color = UIColor(hue: CGFloat(hue),
+                                saturation:CGFloat(1.0),
+                                brightness:CGFloat(1.0),
+                                alpha:CGFloat(1.0));
+            
+            colors.append(color)
+            hue += iNumberOfSteps
         }
         
-        assert(colors.count == numberOfSteps,
-               "Unexpected number of rainbow colors \(colors.count). Expecting \(numberOfSteps)")
+        // assert(colors.count == numberOfSteps, "Unexpected number of rainbow colors \(colors.count). Expecting \(numberOfSteps)")
         
         return colors
     }
 }
 
-class OMRadialGradientLayerViewController : UIViewController {
+class OMGradientLayerViewController : UIViewController {
     
     @IBOutlet weak var centerStartX:  UISlider!
     @IBOutlet weak var centerEndX:  UISlider!
@@ -60,15 +67,14 @@ class OMRadialGradientLayerViewController : UIViewController {
     @IBOutlet weak var extendsPastEnd: UISwitch!
     @IBOutlet weak var extendsPastStart: UISwitch!
     
-    var colors      : [CGColor] = [CGColor]()
+    var colors      : [UIColor] = []
     let locations   : [CGFloat] = [0, 1/6.0, 1/3.0, 0.5, 2/3.0, 5/6.0, 1.0]
     
-    let gradientLayer = OMRadialGradientLayer(type: kOMRadialGradientLayerRadial)
+    let gradientLayer = OMCGGradientLayer(type: .radial)
     let shapeLayer    = CAShapeLayer()
     var animate       = false
     
     // MARK: - Quick reference
-    
 
     
     func setUpGradientLayer() {
@@ -98,47 +104,47 @@ class OMRadialGradientLayerViewController : UIViewController {
     
     // based on http://ericasadun.com/2015/05/15/swift-playground-hack-of-the-day/
     
-    func randomShape(size : CGSize) -> CGPath? {
+    func randomShape(_ size : CGSize) -> CGPath? {
         func RandomFloat() -> CGFloat {return CGFloat(arc4random()) / CGFloat(UINT32_MAX)}
-        func RandomPoint() -> CGPoint {return CGPointMake(size.width * RandomFloat(), size.height * RandomFloat())}
-        let path = UIBezierPath(); path.moveToPoint(RandomPoint())
+        func RandomPoint() -> CGPoint {return CGPoint(x: size.width * RandomFloat(), y: size.height * RandomFloat())}
+        let path = UIBezierPath(); path.move(to: RandomPoint())
         for _ in 0..<(3 + Int(arc4random_uniform(numericCast(10)))) {
-            switch (random() % 3) {
-            case 0: path.addLineToPoint(RandomPoint())
-            case 1: path.addQuadCurveToPoint(RandomPoint(), controlPoint: RandomPoint())
-            case 2: path.addCurveToPoint(RandomPoint(), controlPoint1: RandomPoint(), controlPoint2: RandomPoint())
+            switch (arc4random() % 3) {
+            case 0: path.addLine(to: RandomPoint())
+            case 1: path.addQuadCurve(to: RandomPoint(), controlPoint: RandomPoint())
+            case 2: path.addCurve(to: RandomPoint(), controlPoint1: RandomPoint(), controlPoint2: RandomPoint())
             default: break;
             }
         }
-        path.closePath()
+        path.close()
         
         // maximize it
         
-        let boundingBox = CGPathGetBoundingBox(path.CGPath)
+        let boundingBox = path.cgPath.boundingBox
         
-        var affine  = CGAffineTransformMakeScale(size.width/boundingBox.size.width, size.height/boundingBox.size.height)
+        var affine  = CGAffineTransform(scaleX: size.width/boundingBox.size.width, y: size.height/boundingBox.size.height)
         
-        return CGPathCreateCopyByTransformingPath(path.CGPath, &affine)
+        return path.cgPath.copy(using: &affine)
     }
 
     func updateColorLabels()
     {
-        for (index, color) in colors.enumerate() {
-            self.colorLabels[index].layer.backgroundColor = color
+        for (index, color) in colors.enumerated() {
+            self.colorLabels[index].layer.backgroundColor = color.cgColor
         }
     }
     
     
     func updateLocationSlidersFromLocations() {
-        for (index, label) in locationSliderValueLabels.enumerate() {
+        for (index, label) in locationSliderValueLabels.enumerated() {
             let colorSwitch = colorSwitches[index]
-            if colorSwitch.on {
+            if colorSwitch.isOn {
                 let slider = locationSliders[index]
                 slider.value = Float(locations[index])
                 label.text   = String(format: "%.2f", slider.value)
-                label.hidden = false
+                label.isHidden = false
             } else {
-                label.hidden = true
+                label.isHidden = true
             }
         }
     }
@@ -149,41 +155,41 @@ class OMRadialGradientLayerViewController : UIViewController {
         super.viewDidLoad()
         
         updateLocationSlidersFromLocations()
-        extendsPastEnd.on   = (gradientLayer.options.rawValue & CGGradientDrawingOptions.DrawsAfterEndLocation.rawValue) != 0
-        extendsPastStart.on = (gradientLayer.options.rawValue & CGGradientDrawingOptions.DrawsBeforeStartLocation.rawValue) != 0
+        extendsPastEnd.isOn   = gradientLayer.extendsPastEnd
+        extendsPastStart.isOn = gradientLayer.extendsBeforeStart
         
-        self.colors   =  CGColor.rainbow(7, hue:0).reverse()
+        self.colors   =  UIColor.rainbow(7, hue:0).reversed()
         
         updateColorLabels()
     }
     
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         centerEndX.minimumValue     = 0
         centerStartX.minimumValue   = 0
         
-        centerEndX.maximumValue     = Float(viewForGradientLayer.bounds.size.width * 0.5)
-        centerStartX.maximumValue   = Float(viewForGradientLayer.bounds.size.width * 0.5)
+        centerEndX.maximumValue     = 1.0
+        centerStartX.maximumValue   = 1.0
         
         centerEndY.minimumValue     = 0
         centerStartY.minimumValue   = 0
         
-        centerEndY.maximumValue     = Float(viewForGradientLayer.bounds.size.height * 0.5)
-        centerStartY.maximumValue   = Float(viewForGradientLayer.bounds.size.height * 0.5)
+        centerEndY.maximumValue     = 1.0
+        centerStartY.maximumValue   = 1.0
         
-        startRadiusSlider.value     = 0
-        endRadiusSlider.value       = 1.0
+        startRadiusSlider.value     = 0.5
+        endRadiusSlider.value       = 0.5
         
         setUpGradientLayer()
         updateGradientLayer()
     }
     
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
     {
-        coordinator.animateAlongsideTransition({(UIViewControllerTransitionCoordinatorContext) in
+        coordinator.animate(alongsideTransition: {(UIViewControllerTransitionCoordinatorContext) in
             
         }) {(UIViewControllerTransitionCoordinatorContext) in
             // update the gradient layer frame
@@ -195,10 +201,8 @@ class OMRadialGradientLayerViewController : UIViewController {
     {
         viewForGradientLayer.layoutIfNeeded()
         
-        let radius      = Float(min(viewForGradientLayer.bounds.height, viewForGradientLayer.bounds.width))
-        
-        let endRadius   = Double(radius * endRadiusSlider.value)
-        let startRadius = Double(radius * startRadiusSlider.value)
+        let endRadius   = endRadiusSlider.value
+        let startRadius = startRadiusSlider.value
         
         let startCenter = CGPoint(x:CGFloat(centerStartX.value),y:CGFloat(centerStartY.value))
         let endCenter   = CGPoint(x:CGFloat(centerEndX.value),y:CGFloat(centerEndY.value))
@@ -223,43 +227,43 @@ class OMRadialGradientLayerViewController : UIViewController {
             CATransaction.begin()
             
             gradientLayer.animateKeyPath("startRadius",
-                                         fromValue: Double(gradientLayer.startRadius),
-                                         toValue: startRadius,
+                                         fromValue: Double(gradientLayer.startRadius) as AnyObject?,
+                                         toValue: startRadius as AnyObject?,
                                          beginTime: mediaTime ,
                                          duration: kDefaultAnimationDuration,
                                          delegate: nil)
             
             gradientLayer.animateKeyPath("endRadius",
-                                         fromValue: Double(gradientLayer.endRadius),
-                                         toValue: endRadius,
+                                         fromValue: Double(gradientLayer.endRadius) as AnyObject?,
+                                         toValue: endRadius as AnyObject?,
                                          beginTime: mediaTime,
                                          duration: kDefaultAnimationDuration,
                                          delegate: nil)
             
             gradientLayer.animateKeyPath("startCenter",
-                                         fromValue: NSValue(CGPoint: gradientLayer.startCenter),
-                                         toValue: NSValue(CGPoint:startCenter),
+                                         fromValue: NSValue(cgPoint: gradientLayer.startPoint),
+                                         toValue: NSValue(cgPoint:startCenter),
                                          beginTime: mediaTime ,
                                          duration: kDefaultAnimationDuration,
                                          delegate: nil)
             
             gradientLayer.animateKeyPath("endCenter",
-                                         fromValue: NSValue(CGPoint:gradientLayer.endCenter),
-                                         toValue: NSValue(CGPoint:endCenter),
+                                         fromValue: NSValue(cgPoint:gradientLayer.endPoint),
+                                         toValue: NSValue(cgPoint:endCenter),
                                          beginTime: mediaTime,
                                          duration: kDefaultAnimationDuration,
                                          delegate: nil)
             
             gradientLayer.animateKeyPath("colors",
                                          fromValue:nil,
-                                         toValue: colors,
+                                         toValue: colors as AnyObject?,
                                          beginTime: mediaTime,
                                          duration: kDefaultAnimationDuration,
                                          delegate: nil)
             
             gradientLayer.animateKeyPath("locations",
                                          fromValue:nil,
-                                         toValue: locations.reverse(),
+                                         toValue: locations.reversed() as AnyObject?,
                                          beginTime: mediaTime,
                                          duration: kDefaultAnimationDuration,
                                          delegate: nil)
@@ -267,8 +271,8 @@ class OMRadialGradientLayerViewController : UIViewController {
             
         } else {
             
-            gradientLayer.startCenter   =  startCenter
-            gradientLayer.endCenter     =  endCenter
+            gradientLayer.startPoint   =  startCenter
+            gradientLayer.endPoint    =  endCenter
 //            
 //            gradientLayer.colors        = self.colors
 //            gradientLayer.locations     = self.locations
@@ -276,28 +280,28 @@ class OMRadialGradientLayerViewController : UIViewController {
             gradientLayer.startRadius   = CGFloat(startRadius)
             gradientLayer.endRadius     = CGFloat(endRadius)
             
-            self.gradientLayer.setNeedsDisplay()
+            gradientLayer.setNeedsDisplay()
         }
     }
     
-    @IBAction func extendsPastStartChanged(sender: UISwitch) {
+    @IBAction func extendsPastStartChanged(_ sender: UISwitch) {
         
-        gradientLayer.extendsPastStart = sender.on
+        gradientLayer.extendsBeforeStart = sender.isOn
     }
     
-    @IBAction func extendsPastEndChanged(sender: UISwitch) {
+    @IBAction func extendsPastEndChanged(_ sender: UISwitch) {
         
-        gradientLayer.extendsPastEnd = sender.on
+        gradientLayer.extendsPastEnd = sender.isOn
     }
     
-    @IBAction func radialSliderChanged(sender: UISlider) {
+    @IBAction func radialSliderChanged(_ sender: UISlider) {
         
         updateGradientLayer()
     }
 
-    @IBAction func maskSwitchChanged(sender: UISwitch) {
+    @IBAction func maskSwitchChanged(_ sender: UISwitch) {
         
-        if (sender.on) {
+        if (sender.isOn) {
             
             // mask with a random shape path
             
@@ -316,26 +320,26 @@ class OMRadialGradientLayerViewController : UIViewController {
     }
     
     
-    @IBAction func animateSwitchChanged(sender: UISwitch) {
-        self.animate = sender.on;
+    @IBAction func animateSwitchChanged(_ sender: UISwitch) {
+        self.animate = sender.isOn;
         updateGradientLayer()
     }
     
-    @IBAction func colorSwitchChanged(sender: UISwitch) {
-        var gradientLayerColors = [CGColor]()
-        var locations = [CGFloat]()
+    @IBAction func colorSwitchChanged(_ sender: UISwitch) {
+        var gradientLayerColors:[UIColor] = []
+        var locations:[CGFloat] = []
         
-        for (index, colorSwitch) in colorSwitches.enumerate() {
+        for (index, colorSwitch) in colorSwitches.enumerated() {
             let slider = locationSliders[index]
             
-            if colorSwitch.on {
+            if colorSwitch.isOn {
                 gradientLayerColors.append(colors[index])
                 locations.append(CGFloat(slider.value))
-                slider.hidden = false
-                colorLabels[index].hidden = false;
+                slider.isHidden = false
+                colorLabels[index].isHidden = false;
             } else {
-                slider.hidden = true
-                colorLabels[index].hidden = true;
+                slider.isHidden = true
+                colorLabels[index].isHidden = true;
             }
         }
         
@@ -350,13 +354,13 @@ class OMRadialGradientLayerViewController : UIViewController {
         updateGradientLayer();
     }
     
-    @IBAction func locationSliderChanged(sender: UISlider) {
+    @IBAction func locationSliderChanged(_ sender: UISlider) {
         var gradientLayerLocations = [CGFloat]()
         
-        for (index, slider) in locationSliders.enumerate() {
+        for (index, slider) in locationSliders.enumerated() {
             let colorSwitch = colorSwitches[index]
             
-            if colorSwitch.on {
+            if colorSwitch.isOn {
                 gradientLayerLocations.append(CGFloat(slider.value))
             }
         }
@@ -368,19 +372,17 @@ class OMRadialGradientLayerViewController : UIViewController {
     // MARK: - Triggered actions
 
     
-    @IBAction func randomButtonTouchUpInside(sender: UIButton)
+    @IBAction func randomButtonTouchUpInside(_ sender: UIButton)
     {
-        let maxSize = self.gradientLayer.bounds.size
+        endRadiusSlider.value   = Float(drand48())
+        startRadiusSlider.value = Float(drand48())
         
-        endRadiusSlider.value   = Float(drand48());
-        startRadiusSlider.value = Float(drand48());
-        
-        centerStartX.value = Float( maxSize.width * CGFloat(drand48()))
-        centerStartY.value = Float( maxSize.height * CGFloat(drand48()))
-        centerEndX.value   = Float( maxSize.width * CGFloat(drand48()))
-        centerEndY.value   = Float( maxSize.height * CGFloat(drand48()))
+        centerStartX.value = Float(drand48())
+        centerStartY.value = Float(drand48())
+        centerEndX.value   = Float(drand48())
+        centerEndY.value   = Float(drand48())
     
-        for (index, _) in locationSliders.enumerate() {
+        for (index, _) in locationSliders.enumerated() {
     
             if (drand48() < 0.5 ? true : false) {
                 
@@ -395,16 +397,16 @@ class OMRadialGradientLayerViewController : UIViewController {
                                               green: randomGreen,
                                               blue : randomBlue,
                                               //alpha: (randomAlpha != 0.0) ? randomAlpha : 1.0).CGColor
-                                              alpha: 1.0).CGColor
+                                              alpha: 1.0)
                 
                 // random  location
                 locationSliders[index].value    = Float(drand48())
-                locationSliders[index].enabled  = true
-                colorSwitches[index].on         = true
+                locationSliders[index].isEnabled  = true
+                colorSwitches[index].isOn         = true
                 
             } else {
-                locationSliders[index].enabled = false
-                colorSwitches[index].on        = false
+                locationSliders[index].isEnabled = false
+                colorSwitches[index].isOn        = false
             }
         }
         
