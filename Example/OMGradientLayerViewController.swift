@@ -73,26 +73,26 @@ class OMGradientLayerViewController : UIViewController {
     let gradientLayer = OMCGGradientLayer(type: .radial)
     let shapeLayer    = CAShapeLayer()
     var animate       = false
+    var animationDuration = kDefaultAnimationDuration
     
     // MARK: - Quick reference
-
+    
     
     func setUpGradientLayer() {
         
-        // default values
-        let center = CGPoint(x: viewForGradientLayer.bounds.width * 0.5,
-                             y: viewForGradientLayer.bounds.height * 0.5)
+        centerEndY.value            = 0.5
+        centerStartY.value          = 0.5
         
-        centerStartX.value = Float(center.x)
-        centerStartY.value = Float(center.y)
+        centerEndX.value            = 0.5
+        centerStartX.value          = 0.5
         
-        centerEndX.value = Float(center.x)
-        centerEndY.value = Float(center.y)
+        startRadiusSlider.value     = 1
+        endRadiusSlider.value       = 0
         
         gradientLayer.frame         = viewForGradientLayer.bounds
         gradientLayer.colors        = colors
         gradientLayer.locations     = locations
-
+        
         viewForGradientLayer.layer.addSublayer(gradientLayer)
         
         #if DEBUG
@@ -126,7 +126,7 @@ class OMGradientLayerViewController : UIViewController {
         
         return path.cgPath.copy(using: &affine)
     }
-
+    
     func updateColorLabels()
     {
         for (index, color) in colors.enumerated() {
@@ -158,7 +158,7 @@ class OMGradientLayerViewController : UIViewController {
         extendsPastEnd.isOn   = gradientLayer.extendsPastEnd
         extendsPastStart.isOn = gradientLayer.extendsBeforeStart
         
-        self.colors   =  UIColor.rainbow(7, hue:0).reversed()
+        self.colors =  UIColor.rainbow(7, hue:0).reversed()
         
         updateColorLabels()
     }
@@ -167,20 +167,27 @@ class OMGradientLayerViewController : UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        centerEndX.minimumValue     = 0
-        centerStartX.minimumValue   = 0
         
-        centerEndX.maximumValue     = 1.0
+        centerStartX.minimumValue   = 0
         centerStartX.maximumValue   = 1.0
         
-        centerEndY.minimumValue     = 0
-        centerStartY.minimumValue   = 0
+        centerEndX.minimumValue     = 0
+        centerEndX.maximumValue     = 1.0
         
-        centerEndY.maximumValue     = 1.0
+        centerStartY.minimumValue   = 0
         centerStartY.maximumValue   = 1.0
         
-        startRadiusSlider.value     = 0.5
-        endRadiusSlider.value       = 0.5
+        
+        centerEndY.minimumValue     = 0
+        centerEndY.maximumValue     = 1.0
+        
+        
+        startRadiusSlider.minimumValue     = 0
+        startRadiusSlider.maximumValue     = 1.0
+        
+        endRadiusSlider.minimumValue       = 0
+        endRadiusSlider.maximumValue       = 1.0
+        
         
         setUpGradientLayer()
         updateGradientLayer()
@@ -211,12 +218,12 @@ class OMGradientLayerViewController : UIViewController {
             print("Update \(self.gradientLayer) gradient\n starCenter: \(startCenter)\n endCenter: \(endCenter)\n minRadius: \(startRadius)\nmaxRadius: \(endRadius)\n bounds: \(gradientLayer.bounds.integral)\n")
         #endif
         
-        startCenterSliderValueLabel.text = "\(centerStartX.value)\n\(centerStartY.value)"
-        endCenterSliderValueLabel.text   = "\(centerEndX.value)\n\(centerEndY.value)"
+        startCenterSliderValueLabel.text = String(format: "%.1f\n%.1f", centerEndX.value,centerEndY.value)
+        endCenterSliderValueLabel.text   = String(format: "%.1f\n%.1f", centerStartX.value,centerStartY.value)
         
         startRadiusSliderValueLabel.text = String(format: "%.1f", startRadius)
         endRadiusSliderValueLabel.text   = String(format: "%.1f", endRadius)
-    
+        
         if (self.animate) {
             
             //allways remove all animations
@@ -226,46 +233,47 @@ class OMGradientLayerViewController : UIViewController {
             let mediaTime =  CACurrentMediaTime()
             CATransaction.begin()
             
+            
             gradientLayer.animateKeyPath("startRadius",
-                                         fromValue: Double(gradientLayer.startRadius) as AnyObject?,
-                                         toValue: startRadius as AnyObject?,
+                                         fromValue: Double(gradientLayer.startRadius) as AnyObject,
+                                         toValue: startRadius as AnyObject,
                                          beginTime: mediaTime ,
-                                         duration: kDefaultAnimationDuration,
+                                         duration: animationDuration,
                                          delegate: nil)
             
             gradientLayer.animateKeyPath("endRadius",
-                                         fromValue: Double(gradientLayer.endRadius) as AnyObject?,
+                                         fromValue: Double(gradientLayer.endRadius) as AnyObject,
                                          toValue: endRadius as AnyObject?,
                                          beginTime: mediaTime,
-                                         duration: kDefaultAnimationDuration,
+                                         duration: animationDuration,
                                          delegate: nil)
             
             gradientLayer.animateKeyPath("startCenter",
                                          fromValue: NSValue(cgPoint: gradientLayer.startPoint),
                                          toValue: NSValue(cgPoint:startCenter),
                                          beginTime: mediaTime ,
-                                         duration: kDefaultAnimationDuration,
+                                         duration: animationDuration,
                                          delegate: nil)
             
             gradientLayer.animateKeyPath("endCenter",
                                          fromValue: NSValue(cgPoint:gradientLayer.endPoint),
                                          toValue: NSValue(cgPoint:endCenter),
                                          beginTime: mediaTime,
-                                         duration: kDefaultAnimationDuration,
+                                         duration: animationDuration,
                                          delegate: nil)
             
             gradientLayer.animateKeyPath("colors",
                                          fromValue:nil,
-                                         toValue: colors as AnyObject?,
+                                         toValue: colors as AnyObject,
                                          beginTime: mediaTime,
-                                         duration: kDefaultAnimationDuration,
+                                         duration: animationDuration,
                                          delegate: nil)
             
             gradientLayer.animateKeyPath("locations",
                                          fromValue:nil,
-                                         toValue: locations.reversed() as AnyObject?,
+                                         toValue: locations as AnyObject,
                                          beginTime: mediaTime,
-                                         duration: kDefaultAnimationDuration,
+                                         duration: animationDuration,
                                          delegate: nil)
             CATransaction.commit()
             
@@ -273,9 +281,9 @@ class OMGradientLayerViewController : UIViewController {
             
             gradientLayer.startPoint   =  startCenter
             gradientLayer.endPoint    =  endCenter
-//            
-//            gradientLayer.colors        = self.colors
-//            gradientLayer.locations     = self.locations
+            //
+            //            gradientLayer.colors        = self.colors
+            //            gradientLayer.locations     = self.locations
             
             gradientLayer.startRadius   = CGFloat(startRadius)
             gradientLayer.endRadius     = CGFloat(endRadius)
@@ -298,7 +306,7 @@ class OMGradientLayerViewController : UIViewController {
         
         updateGradientLayer()
     }
-
+    
     @IBAction func maskSwitchChanged(_ sender: UISwitch) {
         
         if (sender.isOn) {
@@ -370,9 +378,14 @@ class OMGradientLayerViewController : UIViewController {
     }
     
     // MARK: - Triggered actions
-
+    
     
     @IBAction func randomButtonTouchUpInside(_ sender: UIButton)
+    {
+        randomGardient()
+    }
+    
+    func randomGardient()
     {
         endRadiusSlider.value   = Float(drand48())
         startRadiusSlider.value = Float(drand48())
@@ -381,10 +394,10 @@ class OMGradientLayerViewController : UIViewController {
         centerStartY.value = Float(drand48())
         centerEndX.value   = Float(drand48())
         centerEndY.value   = Float(drand48())
-    
+        
         for (index, _) in locationSliders.enumerated() {
-    
-            if (drand48() < 0.5 ? true : false) {
+            
+            if drand48() < 0.5 ? true : false {
                 
                 // random color
                 
@@ -397,7 +410,7 @@ class OMGradientLayerViewController : UIViewController {
                                               green: randomGreen,
                                               blue : randomBlue,
                                               //alpha: (randomAlpha != 0.0) ? randomAlpha : 1.0).CGColor
-                                              alpha: 1.0)
+                    alpha: 1.0)
                 
                 // random  location
                 locationSliders[index].value    = Float(drand48())
@@ -416,5 +429,6 @@ class OMGradientLayerViewController : UIViewController {
         for colorSwitch in colorSwitches {
             self.colorSwitchChanged(colorSwitch)
         }
+        
     }
 }
