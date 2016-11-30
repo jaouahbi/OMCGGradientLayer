@@ -29,7 +29,6 @@ class OMGradientLayerViewController : UIViewController, UITableViewDataSource, U
     
     
     @IBOutlet weak var tableViewColorsAndLocations:  UITableView!
-    @IBOutlet weak var tableView:  UITableView!
     @IBOutlet weak var viewPanel:  UIView!
     
     @IBOutlet weak var pointStartX  :  UISlider!
@@ -160,9 +159,7 @@ class OMGradientLayerViewController : UIViewController, UITableViewDataSource, U
     }
     // MARK: - UITableView Datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(self.tableView == tableView) {
-            return slopeFunction.count
-        } else if(self.tableViewColorsAndLocations == tableView) {
+        if(self.tableViewColorsAndLocations == tableView) {
             return numberOfLocations
         } else {
             assertionFailure()
@@ -177,9 +174,8 @@ class OMGradientLayerViewController : UIViewController, UITableViewDataSource, U
         cell.layer.cornerRadius       = cell.bounds.size.height * 0.5
         cell.layer.masksToBounds      = true
         
-        if (self.tableView == tableView) {
-            cell.textLabel?.text  = "\(slopeFunctionString[(indexPath as NSIndexPath).row])"
-        } else if(self.tableViewColorsAndLocations == tableView) {
+
+        if(self.tableViewColorsAndLocations == tableView) {
             cell.textLabel?.text  = locations[(indexPath as NSIndexPath).row].format(false)
             let currentColor = colors[(indexPath as NSIndexPath).row]
             cell.selectedBackgroundView                  = UIView()
@@ -196,9 +192,7 @@ class OMGradientLayerViewController : UIViewController, UITableViewDataSource, U
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let i = indexPath.row
 //        self.gradientLayer.slopeFunction = self.slopeFunction[i];
-        if(tableView == self.tableView) {
-            updateGradientLayer()
-        }else if(tableView == tableViewColorsAndLocations){
+        if(tableView == tableViewColorsAndLocations){
             
         }
     }
@@ -262,9 +256,7 @@ class OMGradientLayerViewController : UIViewController, UITableViewDataSource, U
         startRadiusSlider.value          = 0.0;
         
         // select the first element
-        selectIndexPath(tableView, row: 0)
         selectIndexPath(tableViewColorsAndLocations, row: 0)
-        
         
         // update the gradient layer frame
         self.gradientLayer.frame = self.viewForShadingGradientLayer.bounds
