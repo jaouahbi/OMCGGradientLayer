@@ -86,8 +86,8 @@ class OMGradientLayerViewController : UIViewController {
         centerEndX.value            = 0.5
         centerStartX.value          = 0.5
         
-        startRadiusSlider.value     = 1
-        endRadiusSlider.value       = 0
+        startRadiusSlider.value     = 1.0
+        endRadiusSlider.value       = 0.0
         
         gradientLayer.frame         = viewForGradientLayer.bounds
         gradientLayer.colors        = colors
@@ -161,12 +161,6 @@ class OMGradientLayerViewController : UIViewController {
         self.colors =  UIColor.rainbow(7, hue:0).reversed()
         
         updateColorLabels()
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
         
         centerStartX.minimumValue   = 0
         centerStartX.maximumValue   = 1.0
@@ -188,7 +182,12 @@ class OMGradientLayerViewController : UIViewController {
         endRadiusSlider.minimumValue       = 0
         endRadiusSlider.maximumValue       = 1.0
         
-        
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    
         setUpGradientLayer()
         updateGradientLayer()
     }
