@@ -559,7 +559,7 @@ extension OMTextLayer {
                 context.translateBy(x: rect.midX, y: rect.midY)
                 
                 // Rotate the context 90 degrees counterclockwise.
-                context.rotate(by: CGFloat(M_PI_2));
+                context.rotate(by: CGFloat.pi / 2);
                 
                 // Now for the actual drawing. The angle offset for each glyph relative to the previous glyph has already been
                 // calculated; with that information in hand, draw those glyphs overstruck and centered over one another, making sure

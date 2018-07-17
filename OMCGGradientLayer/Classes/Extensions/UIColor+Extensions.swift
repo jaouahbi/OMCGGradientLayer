@@ -81,7 +81,7 @@ extension UIColor {
         var characterSet = NSCharacterSet.whitespacesAndNewlines
         characterSet = characterSet.union(NSCharacterSet(charactersIn: "#") as CharacterSet)
         let cString = hex.trimmingCharacters(in: characterSet).uppercased()
-        if (cString.characters.count != 6) {
+        if (cString.count != 6) {
             self.init(white: 1.0, alpha: 1.0)
         } else {
             var rgbValue: UInt32 = 0
@@ -148,15 +148,17 @@ extension UIColor {
     /// - alpha (index `3`)
     var hsbaComponents: [CGFloat] {
         // Constructs the array in which to store the HSBA-components.
-        var components = [CGFloat](repeating: 0.0, count: 4)
-        
-        // Stores `self`'s HSBA-component values in `components`.
-        getHue(       &(components[0]),
-                      saturation: &(components[1]),
-                      brightness: &(components[2]),
-                      alpha:      &(components[3])
+        var hue: CGFloat = 0
+        var saturation: CGFloat = 0
+        var brightness: CGFloat = 0
+        var alpha: CGFloat = 0
+        getHue(
+            &hue,
+            saturation: &saturation,
+            brightness: &brightness,
+            alpha: &alpha
         )
-        
+        let components : [CGFloat] = [hue, saturation, brightness, alpha]
         return components
     }
     /// alpha component
