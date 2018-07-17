@@ -30,6 +30,7 @@
 		35F0C59D1CC6D53B0076B308 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0C5951CC6D53B0076B308 /* AppDelegate.swift */; };
 		35F0C5A01CC6D53B0076B308 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35F0C59B1CC6D53B0076B308 /* Main.storyboard */; };
 		35F0C5A11CC6D53B0076B308 /* OMGradientLayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0C59C1CC6D53B0076B308 /* OMGradientLayerViewController.swift */; };
+		E143017D20FE995B00F09C1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E143017C20FE995B00F09C1D /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		35F0C59B1CC6D53B0076B308 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		35F0C59C1CC6D53B0076B308 /* OMGradientLayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OMGradientLayerViewController.swift; sourceTree = "<group>"; };
 		D247910F1A36BB95007AC991 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E143017C20FE995B00F09C1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 			children = (
 				35020FCD1DEB0048008A9E56 /* OMCGGradientLayer */,
 				35F0C5951CC6D53B0076B308 /* AppDelegate.swift */,
+				E143017C20FE995B00F09C1D /* Assets.xcassets */,
 				35F0C59A1CC6D53B0076B308 /* Info.plist */,
 				35F0C59B1CC6D53B0076B308 /* Main.storyboard */,
 				35F0C59C1CC6D53B0076B308 /* OMGradientLayerViewController.swift */,
@@ -210,6 +213,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E143017D20FE995B00F09C1D /* Assets.xcassets in Resources */,
 				35F0C5A01CC6D53B0076B308 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,6 +359,7 @@
 		D247912F1A36BB95007AC991 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
@@ -371,6 +376,7 @@
 		D24791301A36BB95007AC991 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
