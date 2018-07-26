@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		359A8F4A1DEDCDC500D6B470 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359A8F3F1DEDCDC500D6B470 /* AppDelegate.swift */; };
 		359A8F4B1DEDCDC500D6B470 /* Compatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359A8F401DEDCDC500D6B470 /* Compatibility.swift */; };
-		359A8F4C1DEDCDC500D6B470 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 359A8F441DEDCDC500D6B470 /* Images.xcassets */; };
+		359A8F4C1DEDCDC500D6B470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 359A8F441DEDCDC500D6B470 /* Assets.xcassets */; };
 		359A8F4E1DEDCDC500D6B470 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 359A8F461DEDCDC500D6B470 /* Main.storyboard */; };
 		359A8F4F1DEDCDC500D6B470 /* OMGradientLayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359A8F471DEDCDC500D6B470 /* OMGradientLayerViewController.swift */; };
 		359A8F501DEDCDC500D6B470 /* OMGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359A8F481DEDCDC500D6B470 /* OMGradientView.swift */; };
@@ -40,7 +40,7 @@
 /* Begin PBXFileReference section */
 		359A8F3F1DEDCDC500D6B470 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		359A8F401DEDCDC500D6B470 /* Compatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Compatibility.swift; sourceTree = "<group>"; };
-		359A8F441DEDCDC500D6B470 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		359A8F441DEDCDC500D6B470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		359A8F461DEDCDC500D6B470 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		359A8F471DEDCDC500D6B470 /* OMGradientLayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OMGradientLayerViewController.swift; sourceTree = "<group>"; };
 		359A8F481DEDCDC500D6B470 /* OMGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OMGradientView.swift; sourceTree = "<group>"; };
@@ -86,7 +86,7 @@
 				359A8F521DEDCE3200D6B470 /* OMTextLayer */,
 				359A8F3F1DEDCDC500D6B470 /* AppDelegate.swift */,
 				359A8F401DEDCDC500D6B470 /* Compatibility.swift */,
-				359A8F441DEDCDC500D6B470 /* Images.xcassets */,
+				359A8F441DEDCDC500D6B470 /* Assets.xcassets */,
 				359A8F461DEDCDC500D6B470 /* Main.storyboard */,
 				359A8F471DEDCDC500D6B470 /* OMGradientLayerViewController.swift */,
 				359A8F481DEDCDC500D6B470 /* OMGradientView.swift */,
@@ -199,12 +199,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Jorge Ouahbi";
 				TargetAttributes = {
 					D247910E1A36BB95007AC991 = {
 						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0940;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -233,7 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				359A8F4E1DEDCDC500D6B470 /* Main.storyboard in Resources */,
-				359A8F4C1DEDCDC500D6B470 /* Images.xcassets in Resources */,
+				359A8F4C1DEDCDC500D6B470 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,14 +284,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -332,14 +340,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -368,6 +384,7 @@
 		D247912F1A36BB95007AC991 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -381,13 +398,14 @@
 				PRODUCT_NAME = ExampleText;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		D24791301A36BB95007AC991 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -400,7 +418,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jom.ExampleText;
 				PRODUCT_NAME = ExampleText;
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

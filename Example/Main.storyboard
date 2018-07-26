@@ -400,7 +400,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Animated Gradient Layer" id="ZGO-HE-D9l">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="J1N-Ec-Apf">
+                        <barButtonItem key="rightBarButtonItem" id="J1N-Ec-Apf">
                             <view key="customView" contentMode="scaleToFill" id="dec-cQ-NHn">
                                 <rect key="frame" x="288" y="5" width="71" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

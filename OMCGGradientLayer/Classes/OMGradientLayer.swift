@@ -149,7 +149,7 @@ open class OMGradientLayer : CALayer, OMGradientLayerProtocol {
         //rotations move anti-clockwise
         
         //create coordinates
-        let r = 2*M_PI
+        let r = 2*Double.pi
         let a = pow(sin((r*((normalizedAngle+0.75)/2))),2);
         let b = pow(sin((r*((normalizedAngle+0.0)/2))),2);
         let c = pow(sin((r*((normalizedAngle+0.25)/2))),2);
@@ -269,7 +269,7 @@ open class OMGradientLayer : CALayer, OMGradientLayerProtocol {
             var currentDescription:String = "type: \((self.isAxial ? "Axial" : "Radial")) "
             if let locations = locations {
                 if(locations.count == colors.count) {
-                    _ = zip(colors,locations).flatMap { currentDescription += "color: \($0.shortDescription) location: \($1) " }
+                    _ = zip(colors,locations).compactMap { currentDescription += "color: \($0.shortDescription) location: \($1) " }
                 } else {
                     if (locations.count > 0) {
                         _ = locations.map({currentDescription += "\($0) "})
