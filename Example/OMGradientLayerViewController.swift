@@ -313,7 +313,7 @@ class OMGradientLayerViewController : UIViewController {
             // mask with a random shape path
             
             shapeLayer.frame            = viewForGradientLayer.bounds
-            shapeLayer.fillRule         = drand48() > 0.5 ? kCAFillRuleEvenOdd : kCAFillRuleNonZero
+            shapeLayer.fillRule         = convertToCAShapeLayerFillRule(drand48() > 0.5 ? CAShapeLayerFillRule.evenOdd.rawValue : CAShapeLayerFillRule.nonZero.rawValue)
             shapeLayer.miterLimit       = 4.0
             shapeLayer.contentsScale    = gradientLayer.contentsScale
             shapeLayer.setAffineTransform(gradientLayer.affineTransform())
@@ -430,4 +430,9 @@ class OMGradientLayerViewController : UIViewController {
         }
         
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToCAShapeLayerFillRule(_ input: String) -> CAShapeLayerFillRule {
+	return CAShapeLayerFillRule(rawValue: input)
 }
